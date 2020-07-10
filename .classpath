@@ -6,6 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/Users/leo/Documents/prg/eclipse-workspace/craftbukkit-1-8-8.jar"/>
+	<classpathentry kind="lib" path="/Users/leo/Documents/prg/eclipse-workspace/_spigot-1-8-8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
