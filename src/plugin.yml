@@ -1,0 +1,16 @@
+name: BuildFFA
+version: 0.10.3
+description: BuildFFA is a FreeForAll-Game, where you drop on the map and you have blocks.
+
+author: Snocember
+website: https://dev.snocember.de
+
+main: de.snocember.buildffa.Main
+database: false
+
+commands:
+  buildffa:
+    aliases: [bffa, game]
+    description: The main game command.
+  stats:
+    description: See your stats
