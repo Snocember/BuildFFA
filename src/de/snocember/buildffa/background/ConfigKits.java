@@ -20,7 +20,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-
 import de.snocember.buildffa.Main;
 
 public class ConfigKits {
@@ -75,7 +74,7 @@ public class ConfigKits {
 				Integer itemAmount = cfg.getInt("Kits.kit"+i+".slot"+u+".StackAmount");
 				ItemStack item = new ItemStack(Material.getMaterial(itemMaterial), itemAmount);
 				ItemMeta itemM = item.getItemMeta();
-				
+
 				String itemDisplayName = cfg.getString("Kits.kit"+i+".slot"+u+".DisplayName").replaceAll("&", "§");
 				System.out.print("[BuildFFA] DEBUG: ConfigKits: itemDisplayName="+itemDisplayName);
 				itemM.setDisplayName(itemDisplayName);
@@ -96,6 +95,17 @@ public class ConfigKits {
 				}
 				Short itemDurability = (short) cfg.getInt("Kits.kit"+i+".slot"+u+".ShortDurability");
 				item.setDurability((short) itemDurability);
+				
+				Boolean itemUnbreakable = cfg.getBoolean("Kits.kit"+i+".slot"+u+".Unbreakable");
+				if(itemUnbreakable.equals(true)) {
+					try {
+						itemM.spigot().setUnbreakable(true);
+					}
+					catch (java.lang.NoSuchMethodError e) {
+						System.err.print("[BuildFFA] ERROR: Du benötigst Spigot (1.8.8) um unzerstörbare Items zu haben. (Flag Unbreakable)");
+					}
+				}
+				System.out.print("[BuildFFA] DEBUG: ConfigKits: unbreakable: "+itemUnbreakable);
 				
 				Boolean itemHasEnchantments = cfg.getBoolean("Kits.kit"+i+".slot"+u+".Enchantments.hasEnchantments");
 				if(itemHasEnchantments) {
@@ -298,6 +308,8 @@ public class ConfigKits {
 	    cfg.addDefault(kitPath04, false);
 	    String kitPath05 = "Kits.kit0.slot0.ShortDurability";
 	    cfg.addDefault(kitPath05, 0);
+	    String kitPath07 = "Kits.kit0.slot0.Unbreakable";
+	    cfg.addDefault(kitPath07, true);
 	    String kitPath05_hideAttr = "Kits.kit0.slot0.hideAttributes";
 	    cfg.addDefault(kitPath05_hideAttr, false);
 	    String kitPath05_hideUnbr = "Kits.kit0.slot0.hideUnbreakable";
@@ -327,6 +339,8 @@ public class ConfigKits {
 	    cfg.addDefault(kitPath14_3, 2); 
 	    String kitPath15 = "Kits.kit0.slot1.ShortDurability";
 	    cfg.addDefault(kitPath15, 0);
+	    String kitPath17 = "Kits.kit0.slot1.Unbreakable";
+	    cfg.addDefault(kitPath17, true);
 	    String kitPath15_hideAttr = "Kits.kit0.slot1.hideAttributes";
 	    cfg.addDefault(kitPath15_hideAttr, false);
 	    String kitPath15_hideUnbr = "Kits.kit0.slot1.hideUnbreakable";
@@ -348,6 +362,8 @@ public class ConfigKits {
 	    cfg.addDefault(kitPath24, false);
 	    String kitPath25 = "Kits.kit0.slot2.ShortDurability";
 	    cfg.addDefault(kitPath25, 2);
+	    String kitPath27 = "Kits.kit0.slot2.Unbreakable";
+	    cfg.addDefault(kitPath27, false);
 	    String kitPath25_hideAttr = "Kits.kit0.slot2.hideAttributes";
 	    cfg.addDefault(kitPath25_hideAttr, false);
 	    String kitPath25_hideUnbr = "Kits.kit0.slot2.hideUnbreakable";
