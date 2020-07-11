@@ -5,6 +5,7 @@ package de.snocember.buildffa.background;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,6 +37,14 @@ public class PlaceBlock implements Listener {
             RemoveBlockQueue.addBlockQueue(block);
             Location loc = block.getLocation();
             
+            if (loc.getY() >= Config.MaxBuildHeight.doubleValue()) {
+            	if (loc.getY() == Config.MaxBuildHeight.doubleValue()) {
+            		block.setType(Material.SPONGE);
+            	}
+            	else {
+            		e.setCancelled(true);
+            	}
+            }
             // TODO Blockgrenze
         }
 	}

@@ -26,6 +26,8 @@ public class Config {
 	public static Double SpawnCoordY;
 	public static Double SpawnCoordZ;
 	
+	public static Double MaxBuildHeight;
+	
 	public static Boolean GameruleKeepInventory;
 	
 	public static String DeathMsgBeforePlayerName;
@@ -53,6 +55,8 @@ public class Config {
 		SpawnCoordX = cfg.getDouble("BuildFFA.Spawn.CoordX");
 		SpawnCoordY = cfg.getDouble("BuildFFA.Spawn.CoordY");
 		SpawnCoordZ = cfg.getDouble("BuildFFA.Spawn.CoordZ");
+		
+		MaxBuildHeight = cfg.getDouble("BuildFFA.MaxBuildHeight");
 		
 		GameruleKeepInventory = cfg.getBoolean("BuildFFA.KeepInventory");
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doFireTick "+GameruleKeepInventory);
@@ -84,8 +88,11 @@ public class Config {
 	    String path5 = "BuildFFA.Spawn.CoordZ";
 	    cfg.addDefault(path5, 0); //0.5
 	    
-	    String path5a = "BuildFFA.GameruleKeepInventory";
-	    cfg.addDefault(path5a, true);
+	    String path5a = "BuildFFA.MaxBuildHeight";
+	    cfg.addDefault(path5a, 100);
+	    
+	    String path5b = "BuildFFA.GameruleKeepInventory";
+	    cfg.addDefault(path5b, true);
 	    
 	    String path6 = "BuildFFA.Death.MsgBeforePlayerName";
 	    cfg.addDefault(path6, "§8>> §7✝ §c");
