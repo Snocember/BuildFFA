@@ -36,6 +36,7 @@ public class PlayerDeath implements Listener {
 		System.out.println("[BuildFFA] PlayerDeath loaded.");
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player p = event.getEntity();
@@ -43,11 +44,11 @@ public class PlayerDeath implements Listener {
         try {
         	String killer = k.getName();
         	event.setDeathMessage(Config.KillDeathMsgBeforeKillerName+ killer + Config.KillDeathMsgBetweenNames + p.getName() +Config.KillDeathMsgAfterPlayerName);
+        	k.sendTitle("", "§2+ Kill");
         	p.teleport(wspawn);
         	p.getInventory().clear();
         	p.setGameMode(GameMode.ADVENTURE);
         	(( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
-        	//p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 2000000, 4, false, false));
         	//TODO STATS Player
         	//TODO STATS Killer
         }	
@@ -58,8 +59,10 @@ public class PlayerDeath implements Listener {
     		p.getInventory().setArmorContents(null);
     		p.setGameMode(GameMode.ADVENTURE);
     		(( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
-    		//p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 2000000, 4, false, false));
     		//TODO STATS
-        } 
+        }
+        if(Config.Death_ShowTitleWhenJoin) {
+	    	p.sendTitle(Config.Death_TitleHeadline, Config.Death_TitleCaption);
+	    }
 	}
 }

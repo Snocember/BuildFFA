@@ -18,9 +18,17 @@ public class Config {
 	
 	public static String PluginPrefix;
 	
-	public static Boolean ShowTitleWhenJoin;
-	public static String TitleHeadline;
-	public static String TitleCaption;
+	public static Boolean Join_ShowTitleWhenJoin;
+	public static String Join_TitleHeadline;
+	public static String Join_TitleCaption;
+	
+	public static Boolean Death_ShowTitleWhenJoin;
+	public static String Death_TitleHeadline;
+	public static String Death_TitleCaption;
+	
+	public static Boolean Kill_ShowTitleWhenJoin;
+	public static String Kill_TitleHeadline;
+	public static String Kill_TitleCaption;
 	
 	public static Double SpawnCoordX;
 	public static Double SpawnCoordY;
@@ -51,9 +59,17 @@ public class Config {
 		
 		PluginPrefix = cfg.getString("BuildFFA.PluginPrefix").replaceAll("&", "§");
 		
-		ShowTitleWhenJoin = cfg.getBoolean("BuildFFA.Title.ShowTitleWhenJoin");
-		TitleHeadline = cfg.getString("BuildFFA.Title.Headline").replaceAll("&", "§");
-		TitleCaption = cfg.getString("BuildFFA.Title.Caption").replaceAll("&", "§");
+		Join_ShowTitleWhenJoin = cfg.getBoolean("BuildFFA.Titles.JoinTitle.ShowTitleWhenJoin");
+		Join_TitleHeadline = cfg.getString("BuildFFA.Titles.JoinTitle.Headline").replaceAll("&", "§");
+		Join_TitleCaption = cfg.getString("BuildFFA.Titles.JoinTitle.Caption").replaceAll("&", "§");
+		
+		Death_ShowTitleWhenJoin = cfg.getBoolean("BuildFFA.Titles.DeathTitle.ShowTitleWhenDeath");
+		Death_TitleHeadline = cfg.getString("BuildFFA.Titles.DeathTitle.Headline").replaceAll("&", "§");
+		Death_TitleCaption = cfg.getString("BuildFFA.Titles.DeathTitle.Caption").replaceAll("&", "§");
+		
+		Kill_ShowTitleWhenJoin = cfg.getBoolean("BuildFFA.Titles.KillTitle.ShowTitleWhenKill");
+		Kill_TitleHeadline = cfg.getString("BuildFFA.Titles.KillTitle.Headline").replaceAll("&", "§");
+		Kill_TitleCaption = cfg.getString("BuildFFA.Titles.KillTitle.Caption").replaceAll("&", "§");
 
 		SpawnCoordX = cfg.getDouble("BuildFFA.Spawn.CoordX");
 		SpawnCoordY = cfg.getDouble("BuildFFA.Spawn.CoordY");
@@ -90,12 +106,26 @@ public class Config {
 	public void loadConfiguration() {
 		String path = "BuildFFA.PluginPrefix";
 	    cfg.addDefault(path, "§8[§dBuildFFA§8]");
-		String path0 = "BuildFFA.Title.ShowTitleWhenJoin";
+		String path0 = "BuildFFA.Titles.JoinTitle.ShowTitleWhenJoin";
 	    cfg.addDefault(path0, true);
-	    String path1 = "BuildFFA.Title.Headline";
+	    String path1 = "BuildFFA.Titles.JoinTitle.Headline";
 	    cfg.addDefault(path1, "&dBuildFFA");
-	    String path2 = "BuildFFA.Title.Caption";
+	    String path2 = "BuildFFA.Titles.JoinTitle.Caption";
 	    cfg.addDefault(path2, "&edev.snocember.de");
+	    
+	    String path3b = "BuildFFA.Titles.DeathTitle.ShowTitleWhenDeath";
+	    cfg.addDefault(path3b, true);
+	    String path4b = "BuildFFA.Titles.DeathTitle.Headline";
+	    cfg.addDefault(path4b, "");
+	    String path5b = "BuildFFA.Titles.DeathTitle.Caption";
+	    cfg.addDefault(path5b, "&c+ Death");
+	    
+	    String path3c = "BuildFFA.Titles.KillTitle.ShowTitleWhenKill";
+	    cfg.addDefault(path3c, true);
+	    String path4c = "BuildFFA.Titles.KillTitle.Headline";
+	    cfg.addDefault(path4c, "");
+	    String path5c = "BuildFFA.Titles.KillTitle.Caption";
+	    cfg.addDefault(path5c, "&2+ Kill");
 	    
 	    String path3 = "BuildFFA.Spawn.CoordX";
 	    cfg.addDefault(path3, 0); //1.5
@@ -104,11 +134,11 @@ public class Config {
 	    String path5 = "BuildFFA.Spawn.CoordZ";
 	    cfg.addDefault(path5, 0); //0.5
 	    
-	    String path5a = "BuildFFA.MaxBuildHeight";
-	    cfg.addDefault(path5a, 100);
+	    String path5aa = "BuildFFA.MaxBuildHeight";
+	    cfg.addDefault(path5aa, 100);
 	    
-	    String path5b = "BuildFFA.GameruleKeepInventory";
-	    cfg.addDefault(path5b, true);
+	    String path5ab = "BuildFFA.GameruleKeepInventory";
+	    cfg.addDefault(path5ab, true);
 	    
 	    String path6 = "BuildFFA.Death.MsgBeforePlayerName";
 	    cfg.addDefault(path6, "§8>> §7✝ §c");

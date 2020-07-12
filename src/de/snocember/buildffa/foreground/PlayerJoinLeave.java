@@ -2,8 +2,6 @@
 // dev.snocember.de | dev@snocember.de
 package de.snocember.buildffa.foreground;
 
-import static de.snocember.buildffa.background.Config.TitleCaption;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -12,8 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import de.snocember.buildffa.Main;
 import de.snocember.buildffa.background.Config;
@@ -45,12 +41,11 @@ public class PlayerJoinLeave implements Listener {
 	    for(int i=0; i<11; i++) {
 			p.sendMessage("");
 		}
-	    if(Config.ShowTitleWhenJoin) {
-	    	p.sendTitle(Config.TitleHeadline, TitleCaption);
+	    if(Config.Join_ShowTitleWhenJoin) {
+	    	p.sendTitle(Config.Join_TitleHeadline, Config.Join_TitleCaption);
 	    }
 	    p.sendMessage(Config.PluginPrefix+" §cTeams sind auf diesem Server §4verboten§c!");
 	    p.teleport(wspawn);
-	    //p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 2000000, 4, false, false)); //TODO
 	  
 	}
 	

@@ -42,6 +42,9 @@ public class GetKit implements Listener {
             	p.setGameMode(GameMode.SURVIVAL);
         	}
         }
+        if(ploc_y <= -1) {
+        	p.damage(40.0);
+        }
 	}
 	
 	@SuppressWarnings("unchecked")
