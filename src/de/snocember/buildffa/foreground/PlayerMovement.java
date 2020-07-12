@@ -21,13 +21,13 @@ import de.snocember.buildffa.background.Config;
 import de.snocember.buildffa.background.ConfigKits;
 
 @SuppressWarnings("unused")
-public class GetKit implements Listener {
+public class PlayerMovement implements Listener {
 	private Main plugin;
 
-	public GetKit(Main plugin) {
+	public PlayerMovement(Main plugin) {
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
-		System.out.println("[BuildFFA] GetKit loaded.");
+		System.out.println("[BuildFFA] PlayerMovement loaded.");
 	}
 
 	@EventHandler

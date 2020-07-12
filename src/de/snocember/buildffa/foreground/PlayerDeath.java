@@ -16,6 +16,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import de.snocember.buildffa.Main;
 import de.snocember.buildffa.background.Config;
@@ -44,21 +45,24 @@ public class PlayerDeath implements Listener {
         try {
         	String killer = k.getName();
         	event.setDeathMessage(Config.KillDeathMsgBeforeKillerName+ killer + Config.KillDeathMsgBetweenNames + p.getName() +Config.KillDeathMsgAfterPlayerName);
+        	//(( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+        	//p.spigot().respawn();
         	k.sendTitle("", "§2+ Kill");
-        	p.teleport(wspawn);
+        	k.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3, 10, false, false));
         	p.getInventory().clear();
         	p.setGameMode(GameMode.ADVENTURE);
-        	(( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+        	p.teleport(wspawn);
         	//TODO STATS Player
         	//TODO STATS Killer
         }	
     	catch (NullPointerException err) { 
     		event.setDeathMessage(Config.DeathMsgBeforePlayerName +p.getName() +Config.DeathMsgAfterPlayerName);
-    		p.teleport(wspawn);
+    		//(( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+    		//p.spigot().respawn();
     		p.getInventory().clear();
     		p.getInventory().setArmorContents(null);
     		p.setGameMode(GameMode.ADVENTURE);
-    		(( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+    		p.teleport(wspawn);
     		//TODO STATS
         }
         if(Config.Death_ShowTitleWhenJoin) {
