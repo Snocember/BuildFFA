@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -13,7 +15,7 @@ import de.snocember.buildffa.Main;
 
 public class Config {
 	
-	private File file;
+	private static File file;
 	public static FileConfiguration cfg;
 	
 	public static String PluginPrefix;
@@ -48,6 +50,9 @@ public class Config {
 	public static String SrvVersionString;
 	public static String SrvVersion;
 
+	public static World w;
+	public static Location wspawn;
+	
 	@SuppressWarnings("unused")
 	private Main plugin;
 
@@ -99,11 +104,13 @@ public class Config {
 			SrvVersion = "Spigot";
 		}
 		
+		w = Bukkit.getServer().getWorld("world");
+		wspawn = new Location(w, SpawnCoordX, SpawnCoordY, SpawnCoordZ);
 		
 		System.out.println("[BuildFFA] Config loaded.");
 	}
-
-	public void loadConfiguration() {
+	
+	public static void loadConfiguration() {
 		String path = "BuildFFA.PluginPrefix";
 	    cfg.addDefault(path, "§8[§dBuildFFA§8]");
 		String path0 = "BuildFFA.Titles.JoinTitle.ShowTitleWhenJoin";
@@ -153,12 +160,27 @@ public class Config {
 	    cfg.addDefault(path10, "");
 	    
 	    String path11 = "BuildFFA.Stats.recordStats";
-	    cfg.addDefault(path11, false);
-	    
+	    cfg.addDefault(path11, false);    
 
 	    cfg.options().copyDefaults(true);
 	    try {
 			cfg.save(file);
 		} catch (IOException e) { }
+	}
+	public static boolean setSpawn(Double x, Double y, Double z) {
+		cfg.set("BuildFFA.Spawn.CoordZ", x);
+		cfg.set("BuildFFA.Spawn.CoordY", y);
+		cfg.set("BuildFFA.Spawn.CoordZ", z);
+		try {
+			cfg.save(file);
+			SpawnCoordX = x;
+			SpawnCoordY = y;
+			SpawnCoordZ = z;
+			wspawn = new Location(w, SpawnCoordX, SpawnCoordY, SpawnCoordZ);
+			return true;
+		} 
+		catch (IOException e) { 
+			return false;
+		}
 	}
 }

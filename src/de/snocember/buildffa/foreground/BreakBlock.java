@@ -10,7 +10,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.entity.Player;
 
 import de.snocember.buildffa.Main;
-import de.snocember.buildffa.background.Config;
 
 public class BreakBlock implements Listener {
 	@SuppressWarnings("unused")

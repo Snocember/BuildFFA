@@ -3,8 +3,6 @@
 package de.snocember.buildffa.foreground;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,9 +15,6 @@ import de.snocember.buildffa.background.Config;
 /** Beim Joinen wird eine Überschrift gezeigt und eine Nachricht gesendet
  * und das Inventar aktualisiert.*/
 public class PlayerJoinLeave implements Listener {
-
-	World w = Bukkit.getServer().getWorld("world");
-	Location wspawn = new Location(w, Config.SpawnCoordX, Config.SpawnCoordY, Config.SpawnCoordZ);
 	
 	@SuppressWarnings("unused")
 	private Main plugin;
@@ -38,15 +33,14 @@ public class PlayerJoinLeave implements Listener {
 	    Player p = event.getPlayer();
 	    event.setJoinMessage("");
 	    p.getInventory().clear();
-	    for(int i=0; i<11; i++) {
+	    for(int i=0; i<6; i++) {
 			p.sendMessage("");
 		}
 	    if(Config.Join_ShowTitleWhenJoin) {
 	    	p.sendTitle(Config.Join_TitleHeadline, Config.Join_TitleCaption);
 	    }
 	    p.sendMessage(Config.PluginPrefix+" §cTeams sind auf diesem Server §4verboten§c!");
-	    p.teleport(wspawn);
-	  
+	    p.teleport(Config.wspawn);	  
 	}
 	
 	@EventHandler

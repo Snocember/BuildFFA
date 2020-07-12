@@ -40,8 +40,6 @@ public class Main extends JavaPlugin {
 		
 		new NoDamage(this);
 		new NoHunger(this);
-		
-		
+				
 	}
-
 }

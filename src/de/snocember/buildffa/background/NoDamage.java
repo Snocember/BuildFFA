@@ -13,8 +13,9 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import de.snocember.buildffa.Main;
 
-@SuppressWarnings("unused")
+
 public class NoDamage implements Listener {
+	@SuppressWarnings("unused")
 	private Main plugin;
 
 	public NoDamage(Main plugin) {

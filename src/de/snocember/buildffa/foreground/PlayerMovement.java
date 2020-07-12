@@ -7,21 +7,20 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 //import de.snocember.buildffa.Kits;
 import de.snocember.buildffa.Main;
 import de.snocember.buildffa.background.Config;
 import de.snocember.buildffa.background.ConfigKits;
 
-@SuppressWarnings("unused")
+
 public class PlayerMovement implements Listener {
+	@SuppressWarnings("unused")
 	private Main plugin;
 
 	public PlayerMovement(Main plugin) {

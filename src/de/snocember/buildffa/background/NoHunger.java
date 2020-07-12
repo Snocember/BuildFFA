@@ -10,8 +10,9 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 import de.snocember.buildffa.Main;
 
-@SuppressWarnings("unused")
+
 public class NoHunger implements Listener {
+	@SuppressWarnings("unused")
 	private Main plugin;
 
 	public NoHunger(Main plugin) {
@@ -25,7 +26,6 @@ public class NoHunger implements Listener {
         if (!(e.getEntity() instanceof Player)) {
             return;
         }
-        Player p = (Player) e.getEntity();
         e.setCancelled(true);
 	}
 }

@@ -60,10 +60,8 @@ public class RemoveBlockQueue {
 		        	}
 		        	if(delay.equals(0.0)) {
 		        		block.setType(Material.AIR);
-		        	}
-		        	
-		        }
-		    	
+		        	}	        	
+		        }	
 		    }
 		}.runTaskTimer(plugin, 0L, 10L); // 20L = 1 sek
 		

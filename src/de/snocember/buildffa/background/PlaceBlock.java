@@ -45,7 +45,6 @@ public class PlaceBlock implements Listener {
             		e.setCancelled(true);
             	}
             }
-            // TODO Blockgrenze
         }
 	}
 }

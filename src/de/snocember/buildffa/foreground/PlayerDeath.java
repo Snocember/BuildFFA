@@ -4,31 +4,23 @@ package de.snocember.buildffa.foreground;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Server;
-import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
-import org.bukkit.entity.Entity;
+//import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
 import de.snocember.buildffa.Main;
 import de.snocember.buildffa.background.Config;
-import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
-import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand.EnumClientCommand;
+//import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
+//import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand.EnumClientCommand;
 
-@SuppressWarnings("unused")
+
 public class PlayerDeath implements Listener {
 	
-	World w = Bukkit.getServer().getWorld("world");
-	Location wspawn = new Location(w, Config.SpawnCoordX, Config.SpawnCoordY, Config.SpawnCoordZ);
-	
+	@SuppressWarnings("unused")
 	private Main plugin;
 
 	public PlayerDeath(Main plugin) {
@@ -51,7 +43,7 @@ public class PlayerDeath implements Listener {
         	k.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3, 10, false, false));
         	p.getInventory().clear();
         	p.setGameMode(GameMode.ADVENTURE);
-        	p.teleport(wspawn);
+        	p.teleport(Config.wspawn);
         	//TODO STATS Player
         	//TODO STATS Killer
         }	
@@ -62,7 +54,7 @@ public class PlayerDeath implements Listener {
     		p.getInventory().clear();
     		p.getInventory().setArmorContents(null);
     		p.setGameMode(GameMode.ADVENTURE);
-    		p.teleport(wspawn);
+    		p.teleport(Config.wspawn);
     		//TODO STATS
         }
         if(Config.Death_ShowTitleWhenJoin) {
