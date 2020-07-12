@@ -16,7 +16,7 @@ public class NoDrop implements Listener {
 	public NoDrop(Main plugin) {
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
-		System.out.println("[BuildFFA] NoDrop geladen");
+		System.out.println("[BuildFFA] NoDrop loaded.");
 	}
 	
 	@EventHandler

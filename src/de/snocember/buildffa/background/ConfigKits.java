@@ -101,9 +101,7 @@ public class ConfigKits {
 					try {
 						itemM.spigot().setUnbreakable(true);
 					}
-					catch (java.lang.NoSuchMethodError e) {
-						System.err.print("[BuildFFA] ERROR: Du benötigst Spigot (1.8.8) um unzerstörbare Items zu haben. (Flag Unbreakable)");
-					}
+					catch (java.lang.NoSuchMethodError e) {	}
 				}
 				System.out.print("[BuildFFA] DEBUG: ConfigKits: unbreakable: "+itemUnbreakable);
 				
@@ -274,7 +272,7 @@ public class ConfigKits {
 //			einzelKit.clear();
 		}
 		
-		System.out.println("[BuildFFA] ConfigKits geladen.");
+		System.out.println("[BuildFFA] ConfigKits loaded.");
 		System.out.println("[BuildFFA] Anzahl Kits: "+String.valueOf(kits.size()));
 	}
 

@@ -15,7 +15,7 @@ public class GameCommand implements CommandExecutor{
 	public GameCommand(Main plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("buildffa").setExecutor(this);
-		System.out.println("[BuildFFA] Gamecommand geladen");
+		System.out.println("[BuildFFA] Gamecommand loaded.");
 		
 	}
 	

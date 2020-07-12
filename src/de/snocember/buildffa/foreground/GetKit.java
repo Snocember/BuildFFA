@@ -27,7 +27,7 @@ public class GetKit implements Listener {
 	public GetKit(Main plugin) {
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
-		System.out.println("[BuildFFA] GetKit geladen");
+		System.out.println("[BuildFFA] GetKit loaded.");
 	}
 
 	@EventHandler

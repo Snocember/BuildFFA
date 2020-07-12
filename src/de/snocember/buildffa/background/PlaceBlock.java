@@ -23,7 +23,7 @@ public class PlaceBlock implements Listener {
 	public PlaceBlock(Main plugin) {
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
-		System.out.println("[BuildFFA] PlaceBlock geladen");
+		System.out.println("[BuildFFA] PlaceBlock loaded.");
 	}
 	
 	@EventHandler

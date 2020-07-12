@@ -31,7 +31,7 @@ public class PlayerJoinLeave implements Listener {
 	public PlayerJoinLeave(Main plugin) {
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
-		System.out.println("[BuildFFA] PlayerJoinLeave geladen");
+		System.out.println("[BuildFFA] PlayerJoinLeave loaded.");
 	}
 	/** Beim <i>PlayerJoinEvent</i> wird dem Spieler eine Überschrift mit dem Spielmodus gezeigt
 	 * und eine Joinnachricht im Chat angezeigt. Das Inventar wird geleert.*/
@@ -50,7 +50,7 @@ public class PlayerJoinLeave implements Listener {
 	    }
 	    p.sendMessage(Config.PluginPrefix+" §cTeams sind auf diesem Server §4verboten§c!");
 	    p.teleport(wspawn);
-	    p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 2000000, 4, false, false));
+	    //p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 2000000, 4, false, false)); //TODO
 	  
 	}
 	

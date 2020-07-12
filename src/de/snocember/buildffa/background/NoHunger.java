@@ -6,29 +6,26 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 import de.snocember.buildffa.Main;
 
 @SuppressWarnings("unused")
-public class NoFallDamage implements Listener {
+public class NoHunger implements Listener {
 	private Main plugin;
 
-	public NoFallDamage(Main plugin) {
+	public NoHunger(Main plugin) {
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
-		System.out.println("[BuildFFA] NoFallDamage loaded.");
+		System.out.println("[BuildFFA] NoHunger loaded.");
 	}
 	
 	@EventHandler
-    public void onEntityDamageEvent(final EntityDamageEvent e) {
+    public void onEntityDamageEvent(final FoodLevelChangeEvent e) {
         if (!(e.getEntity() instanceof Player)) {
             return;
         }
         Player p = (Player) e.getEntity();
-        if (e.getCause() == DamageCause.FALL) {
-        	e.setCancelled(true);
-        }
+        e.setCancelled(true);
 	}
 }

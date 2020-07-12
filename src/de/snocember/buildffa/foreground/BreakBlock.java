@@ -19,7 +19,7 @@ public class BreakBlock implements Listener {
 	public BreakBlock(Main plugin) {
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
-		System.out.println("[BuildFFA] BreakBlock geladen");
+		System.out.println("[BuildFFA] BreakBlock loaded.");
 	}
 	
 	@EventHandler

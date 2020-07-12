@@ -8,6 +8,7 @@ import de.snocember.buildffa.background.Config;
 import de.snocember.buildffa.background.ConfigKits;
 import de.snocember.buildffa.background.NoDrop;
 import de.snocember.buildffa.background.NoFallDamage;
+import de.snocember.buildffa.background.NoHunger;
 import de.snocember.buildffa.background.PlaceBlock;
 import de.snocember.buildffa.commands.GameCommand;
 import de.snocember.buildffa.foreground.BreakBlock;
@@ -38,6 +39,7 @@ public class Main extends JavaPlugin {
 		new RemoveBlockQueue(this);
 		
 		new NoFallDamage(this);
+		new NoHunger(this);
 		
 		
 	}

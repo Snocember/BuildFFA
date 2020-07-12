@@ -36,6 +36,9 @@ public class Config {
 	public static String KillDeathMsgBeforeKillerName;
 	public static String KillDeathMsgBetweenNames;
 	public static String KillDeathMsgAfterPlayerName;
+	
+	public static String SrvVersionString;
+	public static String SrvVersion;
 
 	@SuppressWarnings("unused")
 	private Main plugin;
@@ -67,8 +70,21 @@ public class Config {
 		KillDeathMsgBeforeKillerName = cfg.getString("BuildFFA.KillDeath.MsgBeforeKillerName").replaceAll("&", "§");
 		KillDeathMsgBetweenNames = cfg.getString("BuildFFA.KillDeath.MsgBetweenNames").replaceAll("&", "§");
 		KillDeathMsgAfterPlayerName = cfg.getString("BuildFFA.KillDeath.MsgAfterPlayerName").replaceAll("&", "§");
-				
-		System.out.println("[BuildFFA] Config geladen.");
+		
+		// TODO World Name
+		
+		SrvVersionString = Bukkit.getServer().getVersion();
+		System.out.println("[BuildFFA] Server-Version: "+SrvVersionString);
+		if(SrvVersionString.contains("Bukkit")) {
+			SrvVersion = "Bukkit";
+			System.err.print("[BuildFFA] WARN: You need Spigot (1.8.8) to have access to all functionalities of the plugin.");
+		}
+		if(SrvVersionString.contains("Spigot")) {
+			SrvVersion = "Spigot";
+		}
+		
+		
+		System.out.println("[BuildFFA] Config loaded.");
 	}
 
 	public void loadConfiguration() {

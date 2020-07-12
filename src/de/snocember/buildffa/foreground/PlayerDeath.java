@@ -33,7 +33,7 @@ public class PlayerDeath implements Listener {
 	public PlayerDeath(Main plugin) {
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
-		System.out.println("[BuildFFA] PlayerDeath geladen");
+		System.out.println("[BuildFFA] PlayerDeath loaded.");
 	}
 	
 	@EventHandler
@@ -47,7 +47,7 @@ public class PlayerDeath implements Listener {
         	p.getInventory().clear();
         	p.setGameMode(GameMode.ADVENTURE);
         	(( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
-        	p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 2000000, 4, false, false));
+        	//p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 2000000, 4, false, false));
         	//TODO STATS Player
         	//TODO STATS Killer
         }	
@@ -58,7 +58,7 @@ public class PlayerDeath implements Listener {
     		p.getInventory().setArmorContents(null);
     		p.setGameMode(GameMode.ADVENTURE);
     		(( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
-    		p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 2000000, 4, false, false));
+    		//p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 2000000, 4, false, false));
     		//TODO STATS
         } 
 	}
