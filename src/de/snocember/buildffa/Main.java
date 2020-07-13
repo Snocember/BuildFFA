@@ -16,6 +16,7 @@ import de.snocember.buildffa.foreground.PlayerDeath;
 import de.snocember.buildffa.foreground.PlayerJoinLeave;
 import de.snocember.buildffa.foreground.PlayerMovement;
 import de.snocember.buildffa.foreground.RemoveBlockQueue;
+import de.snocember.buildffa.stats.StatsCommand;
 
 public class Main extends JavaPlugin {
 	
@@ -27,6 +28,7 @@ public class Main extends JavaPlugin {
 		new ConfigKits(this);
 		
 		new GameCommand(this);
+		new StatsCommand(this);
 		
 		new PlayerJoinLeave(this);
 		new PlayerDeath(this);

@@ -1,6 +1,6 @@
 // (c) Snocember (#8770 auf Discord), 2020
 // dev.snocember.de | dev@snocember.de
-package de.snocember.buildffa.commands;
+package de.snocember.buildffa.stats;
 
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -8,12 +8,12 @@ import org.bukkit.entity.Player;
 import de.snocember.buildffa.Main;
 import de.snocember.buildffa.background.Config;
 
-public class Stats implements CommandExecutor{
+public class StatsCommand implements CommandExecutor{
 	
 	@SuppressWarnings("unused")
 	private Main plugin;
 	
-	public Stats(Main plugin) {
+	public StatsCommand(Main plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("stats").setExecutor(this);
 		System.out.println("[BuildFFA] Stats loaded.");	

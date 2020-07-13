@@ -4,7 +4,7 @@ package de.snocember.buildffa.foreground;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-//import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,13 +14,12 @@ import org.bukkit.potion.PotionEffectType;
 
 import de.snocember.buildffa.Main;
 import de.snocember.buildffa.background.Config;
-//import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
-//import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand.EnumClientCommand;
+import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
+import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand.EnumClientCommand;
 
 
 public class PlayerDeath implements Listener {
 	
-	@SuppressWarnings("unused")
 	private Main plugin;
 
 	public PlayerDeath(Main plugin) {
@@ -37,24 +36,35 @@ public class PlayerDeath implements Listener {
         try {
         	String killer = k.getName();
         	event.setDeathMessage(Config.KillDeathMsgBeforeKillerName+ killer + Config.KillDeathMsgBetweenNames + p.getName() +Config.KillDeathMsgAfterPlayerName);
-        	//(( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
-        	//p.spigot().respawn();
         	k.sendTitle("", "§2+ Kill");
         	k.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3, 10, false, false));
         	p.getInventory().clear();
         	p.setGameMode(GameMode.ADVENTURE);
-        	p.teleport(Config.wspawn);
+        	Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+  			  @Override
+  			  public void run() {
+  				  (( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+  				  // same as p.spigot().respawn();
+  				  p.teleport(Config.wspawn);
+  			  }
+        	}, Long.valueOf(4) );
         	//TODO STATS Player
         	//TODO STATS Killer
         }	
     	catch (NullPointerException err) { 
     		event.setDeathMessage(Config.DeathMsgBeforePlayerName +p.getName() +Config.DeathMsgAfterPlayerName);
-    		//(( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
-    		//p.spigot().respawn();
     		p.getInventory().clear();
     		p.getInventory().setArmorContents(null);
     		p.setGameMode(GameMode.ADVENTURE);
-    		p.teleport(Config.wspawn);
+    		Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+    			  @Override
+    			  public void run() {
+    				  (( CraftPlayer ) p).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+    				  // same as p.spigot().respawn();
+    				  p.teleport(Config.wspawn);
+    			  }
+    		}, Long.valueOf(4) );
+    		
     		//TODO STATS
         }
         if(Config.Death_ShowTitleWhenJoin) {
