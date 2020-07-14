@@ -5,8 +5,8 @@ package de.snocember.buildffa.stats;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
+import de.snocember.buildffa.Config;
 import de.snocember.buildffa.Main;
-import de.snocember.buildffa.background.Config;
 
 public class StatsCommand implements CommandExecutor{
 	
@@ -16,7 +16,7 @@ public class StatsCommand implements CommandExecutor{
 	public StatsCommand(Main plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("stats").setExecutor(this);
-		System.out.println("[BuildFFA] Stats loaded.");	
+		System.out.println("[BuildFFA] StatsCommand loaded.");	
 	}
 	
 	@Override

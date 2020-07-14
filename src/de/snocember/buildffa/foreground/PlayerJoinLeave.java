@@ -9,8 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import de.snocember.buildffa.Config;
 import de.snocember.buildffa.Main;
-import de.snocember.buildffa.background.Config;
 
 /** Beim Joinen wird eine Überschrift gezeigt und eine Nachricht gesendet
  * und das Inventar aktualisiert.*/
@@ -32,6 +32,7 @@ public class PlayerJoinLeave implements Listener {
 	    if (Main.DebugOn.equals("1")) {System.out.println("[Coins] DEBUG: Joinevent!"); }
 	    Player p = event.getPlayer();
 	    event.setJoinMessage("");
+	    p.setExp(0);
 	    p.getInventory().clear();
 	    for(int i=0; i<6; i++) {
 			p.sendMessage("");

@@ -13,10 +13,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
+import de.snocember.buildffa.Config;
 //import de.snocember.buildffa.Kits;
 import de.snocember.buildffa.Main;
-import de.snocember.buildffa.background.Config;
-import de.snocember.buildffa.background.ConfigKits;
+import de.snocember.buildffa.kits.ConfigKits;
 
 
 public class PlayerMovement implements Listener {

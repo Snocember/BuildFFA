@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.entity.Player;
 
+import de.snocember.buildffa.Config;
 import de.snocember.buildffa.Main;
 import de.snocember.buildffa.foreground.RemoveBlockQueue;
 

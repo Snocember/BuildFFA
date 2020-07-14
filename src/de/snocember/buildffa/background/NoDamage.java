@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
+import de.snocember.buildffa.Config;
 import de.snocember.buildffa.Main;
 
 

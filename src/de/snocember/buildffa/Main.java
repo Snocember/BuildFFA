@@ -4,8 +4,6 @@ package de.snocember.buildffa;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.snocember.buildffa.background.Config;
-import de.snocember.buildffa.background.ConfigKits;
 import de.snocember.buildffa.background.NoDamage;
 import de.snocember.buildffa.background.NoDrop;
 import de.snocember.buildffa.background.NoHunger;
@@ -16,6 +14,7 @@ import de.snocember.buildffa.foreground.PlayerDeath;
 import de.snocember.buildffa.foreground.PlayerJoinLeave;
 import de.snocember.buildffa.foreground.PlayerMovement;
 import de.snocember.buildffa.foreground.RemoveBlockQueue;
+import de.snocember.buildffa.kits.ConfigKits;
 import de.snocember.buildffa.stats.StatsCommand;
 
 public class Main extends JavaPlugin {

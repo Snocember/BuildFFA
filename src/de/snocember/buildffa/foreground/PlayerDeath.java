@@ -12,8 +12,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import de.snocember.buildffa.Config;
 import de.snocember.buildffa.Main;
-import de.snocember.buildffa.background.Config;
 import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
 import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand.EnumClientCommand;
 

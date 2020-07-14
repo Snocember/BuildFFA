@@ -5,8 +5,8 @@ package de.snocember.buildffa.commands;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
+import de.snocember.buildffa.Config; 
 import de.snocember.buildffa.Main;
-import de.snocember.buildffa.background.Config;
 
 public class GameCommand implements CommandExecutor{
 	

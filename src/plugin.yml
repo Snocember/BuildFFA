@@ -1,5 +1,5 @@
 name: BuildFFA
-version: 0.14.7q
+version: 0.14.9
 description: BuildFFA is a FreeForAll-Game, where you drop on the map and you have blocks.
 
 author: Snocember
@@ -13,4 +13,7 @@ commands:
     aliases: [bffa, game]
     description: The main game command.
   stats:
-    description: See your stats
+    description: See your stats.
+  kit:
+    aliases: [kits]
+    description: Choose your kit.
