@@ -2,6 +2,8 @@
 // dev.snocember.de | dev@snocember.de
 package de.snocember.buildffa.stats;
 
+import java.util.UUID;
+
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
@@ -26,24 +28,35 @@ public class StatsCommand implements CommandExecutor{
 			return true;
 		}
 		Player p = (Player) sender;
+		UUID uuid = p.getUniqueId();
 		
 		if ((cmd.getName().equalsIgnoreCase("stats")) && (args.length == 0)) {
-			p.sendMessage(Config.PluginPrefix+" §eStats.");
+			p.sendMessage(Config.PluginPrefix+" §eAlltime-Stats:");
+			try {
+				int allKills = StatsSystem.getKills(uuid)[0];
+				int allDeaths = StatsSystem.getDeaths(uuid)[0];
+				if(allDeaths != 0) {
+					p.sendMessage("    §2Kills§7: §2"+allKills+" §7- §cDeaths§7: §c"+allDeaths+" §7- §eK/D§7: §e"+allKills/allDeaths);
+				}
+				else {
+					p.sendMessage("    §2Kills§7: §2"+allKills+" §7- §cDeaths§7: §c"+allDeaths+" §7- §eK/D§7: §e"+allKills);
+				}
+			}
+			catch (NullPointerException e) {
+				p.sendMessage("    §cKeine Stats vorhanden.");
+				StatsSystem.loadProfile(uuid);
+			}
 			// TODO Stats
 	    	return true;
 
 	    }
 		else if ((cmd.getName().equalsIgnoreCase("stats")) && (args.length != 0)) {
-			if (p.hasPermission("buildffa.admin")) {
-		    	if(args[0].equalsIgnoreCase("stats"))
-		    	{
-		    		p.sendMessage(Config.PluginPrefix+" §eStats eines anderen Spielers.");
-		    		// TODO Stats eines anderen Spielers.
-		    	}
-		    	
+			if (p.hasPermission("buildffa.otherstats")) {
+		    	p.sendMessage(Config.PluginPrefix+" §eStats eines anderen Spielers.");
+		    	// TODO Stats eines anderen Spielers.    	
 			}
 			else {
-				p.sendMessage(Config.PluginPrefix+" §cDu hast keine Berechtigungen, diesen Command auszuführen.");
+				p.sendMessage(Config.PluginPrefix+" §cDu hast keine Berechtigungen, Stats anderer Spieler zu sehen.");
 			}
 		}
 		return false;
