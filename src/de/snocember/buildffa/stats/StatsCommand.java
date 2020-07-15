@@ -31,20 +31,14 @@ public class StatsCommand implements CommandExecutor{
 		UUID uuid = p.getUniqueId();
 		
 		if ((cmd.getName().equalsIgnoreCase("stats")) && (args.length == 0)) {
-			p.sendMessage(Config.PluginPrefix+" §eAlltime-Stats:");
-			try {
-				int allKills = StatsSystem.getKills(uuid)[0];
-				int allDeaths = StatsSystem.getDeaths(uuid)[0];
-				if(allDeaths != 0) {
-					p.sendMessage("    §2Kills§7: §2"+allKills+" §7- §cDeaths§7: §c"+allDeaths+" §7- §eK/D§7: §e"+allKills/allDeaths);
-				}
-				else {
-					p.sendMessage("    §2Kills§7: §2"+allKills+" §7- §cDeaths§7: §c"+allDeaths+" §7- §eK/D§7: §e"+allKills);
-				}
+			p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-");
+			int allKills = StatsSystem.getKills(uuid)[0];
+			int allDeaths = StatsSystem.getDeaths(uuid)[0];
+			if(allDeaths != 0) {
+				p.sendMessage("  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+allKills/allDeaths+"\n§7- - - - - - - - - - - - - -");
 			}
-			catch (NullPointerException e) {
-				p.sendMessage("    §cKeine Stats vorhanden.");
-				StatsSystem.loadProfile(uuid);
+			else {
+				p.sendMessage("  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+allKills+"\n§7- - - - - - - - - - - - - -");
 			}
 			// TODO Stats
 	    	return true;

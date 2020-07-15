@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class StatsSystem {
 	public static Map<UUID, int[]> deathMap = new HashMap<UUID, int[]>();
 	// deathMap.get(uuid), [0] Stats all, [1] Stats 30 days, [2] Stats 1 day
@@ -23,41 +24,81 @@ public class StatsSystem {
 	}
 	
 	public static boolean unloadProfile(UUID uuid) {
-		if(saveProfile(uuid)) {
-			deathMap.remove(uuid);
-			killMap.remove(uuid);
-			killStreakMap.remove(uuid);
+		try {
+			if(saveProfile(uuid)) {
+				deathMap.remove(uuid);
+				killMap.remove(uuid);
+				killStreakMap.remove(uuid);
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		catch (NullPointerException e) {
+			return false;
+		}
+		// TODO falls keine Connection -> Ersatzwerte, da sonst unendlich schleife
+	}
+	
+	public static boolean saveProfile(UUID uuid) {
+		try {
+			// TODO save deaths
+			// TODO save kills
+			// TODO save killStreakRecord
 			return true;
 		}
-		else {
+		catch (NullPointerException e) {
 			return false;
 		}
 	}
 	
-	public static boolean saveProfile(UUID uuid) {
-		// TODO save deaths
-		// TODO save kills
-		// TODO save killStreakRecord
-		return true;
-	}
-	
 	public static int[] getDeaths(UUID uuid) {
-		int[] deaths = deathMap.get(uuid);
-		return deaths;
+		try {
+			int test = deathMap.get(uuid)[0];
+			int[] deaths = deathMap.get(uuid);
+			return deaths;
+		}
+		catch (NullPointerException e) {
+			loadProfile(uuid);
+			return deathMap.get(uuid);
+		}
 	}
 	
 	public static int[] getKills(UUID uuid) {
-		int[] kills = killMap.get(uuid);
-		return kills;
+		try {
+			int test = killMap.get(uuid)[0];
+			int[] kills = killMap.get(uuid);
+			return kills;
+		}
+		catch (NullPointerException e) {
+			loadProfile(uuid);
+			return killMap.get(uuid);
+		}
 	}
 	
 	public static int[] getKillStreak(UUID uuid) {
-		int[] killStreak = killStreakMap.get(uuid);
-		return killStreak;
+		try {
+			int test = killStreakMap.get(uuid)[0];
+			int[] killStreak = killStreakMap.get(uuid);
+			return killStreak;
+		}
+		catch (NullPointerException e) {
+			loadProfile(uuid);
+			return killStreakMap.get(uuid);
+		}
 	}
 	
 	public static boolean addDeath(UUID uuid) {
-		int[] deaths = getDeaths(uuid);
+		int[] deaths = new int[] {0, 0, 0};
+		try {
+			int test = deathMap.get(uuid)[0];
+			deaths = getDeaths(uuid);
+		}
+		catch (NullPointerException e) {
+			loadProfile(uuid);
+			deaths = getDeaths(uuid);
+		}
 		deathMap.put(uuid, new int[] {deaths[0]+1, deaths[1]+1, deaths[2]+1});
 		int killStreakRecord = getKillStreak(uuid)[1];
 		killStreakMap.put(uuid, new int[] {0, killStreakRecord});
@@ -65,7 +106,15 @@ public class StatsSystem {
 	}
 	
 	public static boolean addKill(UUID uuid) {
-		int[] kills = getKills(uuid);
+		int[] kills = new int[] {0, 0, 0};
+		try {
+			int test = killMap.get(uuid)[0];
+			kills = getKills(uuid);
+		}
+		catch (NullPointerException e) {
+			loadProfile(uuid);
+			kills = getKills(uuid);
+		}
 		killMap.put(uuid, new int[] {kills[0]+1, kills[1]+1, kills[2]+1});
 		int killStreak = getKillStreak(uuid)[0];
 		int killStreakRecord = getKillStreak(uuid)[1];

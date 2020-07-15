@@ -34,6 +34,7 @@ public class Config {
 	public static Double SpawnCoordY;
 	public static Double SpawnCoordZ;
 	
+	public static Boolean UnlimitedBlocks;	
 	public static Double MaxBuildHeight;
 	
 	public static Boolean GameruleKeepInventory;
@@ -78,6 +79,7 @@ public class Config {
 		SpawnCoordY = cfg.getDouble("BuildFFA.Spawn.CoordY");
 		SpawnCoordZ = cfg.getDouble("BuildFFA.Spawn.CoordZ");
 		
+		UnlimitedBlocks = cfg.getBoolean("BuildFFA.UnlimitedBlocks");
 		MaxBuildHeight = cfg.getDouble("BuildFFA.MaxBuildHeight");
 		
 		GameruleKeepInventory = cfg.getBoolean("BuildFFA.KeepInventory");
@@ -139,6 +141,8 @@ public class Config {
 	    String path5 = "BuildFFA.Spawn.CoordZ";
 	    cfg.addDefault(path5, 0); //0.5
 	    
+	    String path5ac = "BuildFFA.UnlimitedBlocks";
+	    cfg.addDefault(path5ac, false);
 	    String path5aa = "BuildFFA.MaxBuildHeight";
 	    cfg.addDefault(path5aa, 100);
 	    

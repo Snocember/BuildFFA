@@ -27,6 +27,7 @@ public class PlaceBlock implements Listener {
 		System.out.println("[BuildFFA] PlaceBlock loaded.");
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
     public void onPlaceBlockEvent(BlockPlaceEvent e) {
         if (!(e.getPlayer() instanceof Player)) {
@@ -40,11 +41,17 @@ public class PlaceBlock implements Listener {
             
             if (loc.getY() >= Config.MaxBuildHeight.doubleValue()) {
             	if (loc.getY() == Config.MaxBuildHeight.doubleValue()) {
-            		block.setType(Material.SPONGE);
+            		block.setTypeIdAndData(159, (byte) 4, true);
             	}
             	else {
             		e.setCancelled(true);
             	}
+            }
+            if(Config.UnlimitedBlocks) {
+            	if(block.getType().equals(Material.SANDSTONE)) {
+            		e.getPlayer().getItemInHand();
+        			e.getPlayer().getInventory().setItemInHand(e.getPlayer().getItemInHand());
+        		}
             }
         }
 	}
