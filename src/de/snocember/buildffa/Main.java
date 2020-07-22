@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.snocember.buildffa.background.AutoGameChangeQueue;
 import de.snocember.buildffa.background.NoDamage;
 import de.snocember.buildffa.background.NoDrop;
 import de.snocember.buildffa.background.NoHunger;
@@ -45,6 +46,8 @@ public class Main extends JavaPlugin {
 		
 		new NoDamage(this);
 		new NoHunger(this);
+		
+		new AutoGameChangeQueue(this);
 		
 		Collection<? extends Player> playerlist = Bukkit.getServer().getOnlinePlayers();
 		for(Player p : playerlist) {

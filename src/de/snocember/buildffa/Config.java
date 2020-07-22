@@ -55,6 +55,9 @@ public class Config {
 	public static Integer CurrentWorldsNumber;
 	public static ArrayList<Object[]> worlds = new ArrayList<>(); //0=Name,1=Location,2=MaxBuildHeight
 	
+	public static Integer AutoMapChangePeriod;
+	public static Integer AutoKitChangePeriod;
+	
 	public static World w;
 	public static Location wspawn;
 	
@@ -131,6 +134,9 @@ public class Config {
 		w = Bukkit.getServer().getWorld((String) worlds.get(CurrentWorldsNumber)[0]);
 		wspawn = new Location(w, SpawnCoordX, SpawnCoordY, SpawnCoordZ);
 
+	    AutoMapChangePeriod = cfg.getInt("BuildFFA.AutoMapChangePeriodInSec");
+		AutoKitChangePeriod = cfg.getInt("BuildFFA.AutoKitChangePeriodInSec");
+	    
 		System.out.println("[BuildFFA] Config loaded.");
 	}
 	
@@ -188,6 +194,11 @@ public class Config {
 	    String path11 = "BuildFFA.Stats.recordStats";
 	    cfg.addDefault(path11, false);    
 
+	    String path11a = "BuildFFA.AutoMapChangePeriodInSec";
+	    cfg.addDefault(path11a, 0);
+	    String path11b = "BuildFFA.AutoKitChangePeriodInSec";
+	    cfg.addDefault(path11b, 0);
+	    
 	    String path12a = "BuildFFA.Worlds.Number";
 	    cfg.addDefault(path12a, 1);
 	    String path12b = "BuildFFA.Worlds.world0.Name";
