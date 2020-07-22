@@ -37,7 +37,7 @@ public class PlayerMovement implements Listener {
         if(ploc_y <= Config.SpawnCoordY -3 && ploc_y >= Config.SpawnCoordY -4.0) {
         	if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
         		//p.sendMessage("§7DEBUG: Unter Spawn.");
-            	addKit(p, 0);
+            	addKit(p, ConfigKits.CurrentKitNumber);
             	p.setGameMode(GameMode.SURVIVAL);
         	}
         }
@@ -47,7 +47,7 @@ public class PlayerMovement implements Listener {
 	}
 	
 	@SuppressWarnings("unchecked")
-	void addKit(Player p, int KitNr) {
+	public static void addKit(Player p, int KitNr) {
 		ArrayList<ItemStack> kit = (ArrayList<ItemStack>) ConfigKits.kits.get(KitNr);
 		ArrayList<ItemStack> kit_armour = (ArrayList<ItemStack>) ConfigKits.kits_armour.get(KitNr);
 		Integer arraySize = kit.size();

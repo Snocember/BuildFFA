@@ -32,7 +32,8 @@ public class ConfigKits {
 	
 	public static ArrayList<Object> kits_armour = new ArrayList<>();
 
-	
+	public static Integer KitsNumber;
+	public static Integer CurrentKitNumber;
 	
 
 	@SuppressWarnings("unused")
@@ -45,7 +46,7 @@ public class ConfigKits {
 		cfg = YamlConfiguration.loadConfiguration(file);
 		loadConfiguration();
 		
-		Integer KitsNumber = cfg.getInt("Kits.Number");
+		KitsNumber = cfg.getInt("Kits.Number");
 		
 		for(int i=0; i< KitsNumber; i++) {
 			ArrayList<ItemStack> einzelKit = new ArrayList<>();
@@ -268,9 +269,9 @@ public class ConfigKits {
 				
 			}
 			kits_armour.add(einzelKit_armour);
-//			einzelKit_armour.clear();
-//			einzelKit.clear();
 		}
+		
+		CurrentKitNumber = 0;
 		
 		System.out.println("[BuildFFA] ConfigKits loaded.");
 		System.out.println("[BuildFFA] Anzahl Kits: "+String.valueOf(kits.size()));

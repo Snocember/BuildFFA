@@ -46,6 +46,7 @@ public class PlaceBlock implements Listener {
             	else {
             		e.setCancelled(true);
             	}
+            	System.out.print("[BuildFFA] DEBUG: PlaceBlock: loc.getY()='"+loc.getY()+"'; MaxBuildHeight='"+Config.MaxBuildHeight.doubleValue()+"'");
             }
             if(Config.UnlimitedBlocks) {
             	if(block.getType().equals(Material.SANDSTONE)) {
@@ -53,6 +54,7 @@ public class PlaceBlock implements Listener {
         			e.getPlayer().getInventory().setItemInHand(e.getPlayer().getItemInHand());
         		}
             }
+            // TODO BlockRangeXY
         }
 	}
 }

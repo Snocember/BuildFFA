@@ -20,6 +20,7 @@ public class StatsSystem {
 		deathMap.put(uuid, new int[] {0, 0, 0});
 		killMap.put(uuid, new int[] {0, 0, 0});
 		killStreakMap.put(uuid, new int[] {0, 0});
+		// TODO falls keine Connection -> Ersatzwerte, da sonst unendlich schleife
 		
 	}
 	
@@ -38,7 +39,6 @@ public class StatsSystem {
 		catch (NullPointerException e) {
 			return false;
 		}
-		// TODO falls keine Connection -> Ersatzwerte, da sonst unendlich schleife
 	}
 	
 	public static boolean saveProfile(UUID uuid) {

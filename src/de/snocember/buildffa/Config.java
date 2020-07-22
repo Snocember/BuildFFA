@@ -4,10 +4,12 @@ package de.snocember.buildffa;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -30,10 +32,6 @@ public class Config {
 	public static String Kill_TitleHeadline;
 	public static String Kill_TitleCaption;
 	
-	public static Double SpawnCoordX;
-	public static Double SpawnCoordY;
-	public static Double SpawnCoordZ;
-	
 	public static Boolean UnlimitedBlocks;	
 	public static Double MaxBuildHeight;
 	
@@ -49,6 +47,14 @@ public class Config {
 	public static String SrvVersionString;
 	public static String SrvVersion;
 
+	public static Double SpawnCoordX;
+	public static Double SpawnCoordY;
+	public static Double SpawnCoordZ;
+	
+	public static Integer WorldsNumber;
+	public static Integer CurrentWorldsNumber;
+	public static ArrayList<Object[]> worlds = new ArrayList<>(); //0=Name,1=Location,2=MaxBuildHeight
+	
 	public static World w;
 	public static Location wspawn;
 	
@@ -74,13 +80,8 @@ public class Config {
 		Kill_ShowTitleWhenJoin = cfg.getBoolean("BuildFFA.Titles.KillTitle.ShowTitleWhenKill");
 		Kill_TitleHeadline = cfg.getString("BuildFFA.Titles.KillTitle.Headline").replaceAll("&", "§");
 		Kill_TitleCaption = cfg.getString("BuildFFA.Titles.KillTitle.Caption").replaceAll("&", "§");
-
-		SpawnCoordX = cfg.getDouble("BuildFFA.Spawn.CoordX");
-		SpawnCoordY = cfg.getDouble("BuildFFA.Spawn.CoordY");
-		SpawnCoordZ = cfg.getDouble("BuildFFA.Spawn.CoordZ");
 		
 		UnlimitedBlocks = cfg.getBoolean("BuildFFA.UnlimitedBlocks");
-		MaxBuildHeight = cfg.getDouble("BuildFFA.MaxBuildHeight");
 		
 		GameruleKeepInventory = cfg.getBoolean("BuildFFA.KeepInventory");
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doFireTick "+GameruleKeepInventory);
@@ -104,9 +105,32 @@ public class Config {
 			SrvVersion = "Spigot";
 		}
 		
-		w = Bukkit.getServer().getWorld("world");
-		wspawn = new Location(w, SpawnCoordX, SpawnCoordY, SpawnCoordZ);
+		WorldsNumber = cfg.getInt("BuildFFA.Worlds.Number");
+
+		for(int i=0; i< WorldsNumber; i++) {
+			String name = cfg.getString("BuildFFA.Worlds.world"+i+".Name");
+			Double spawnCoordX = cfg.getDouble("BuildFFA.Worlds.world"+i+".SpawnCoordX");
+			Double spawnCoordY = cfg.getDouble("BuildFFA.Worlds.world"+i+".SpawnCoordY");
+			Double spawnCoordZ = cfg.getDouble("BuildFFA.Worlds.world"+i+".SpawnCoordZ");
+			Integer maxBuildHeight = cfg.getInt("BuildFFA.Worlds.world"+i+".MaxBuildHeight");
+			
+			Bukkit.getServer().createWorld(new WorldCreator(name));
+			System.out.println("[BuildFFA] DEBUG: Welt '"+name+"' geladen.");
+			Location loc = new Location(w, spawnCoordX, spawnCoordY, spawnCoordZ);
+			worlds.add(new Object[] {name, loc, maxBuildHeight});
+		}
+		System.out.println("[BuildFFA] DEBUG: worlds: "+worlds);
 		
+		CurrentWorldsNumber = 0;
+		wspawn = (Location) worlds.get(CurrentWorldsNumber)[1];
+		SpawnCoordX = Double.valueOf(wspawn.getX());
+		SpawnCoordY = Double.valueOf(wspawn.getY());
+		SpawnCoordZ = Double.valueOf(wspawn.getZ());
+		MaxBuildHeight = Double.valueOf( (Integer) worlds.get(CurrentWorldsNumber)[2] );
+		
+		w = Bukkit.getServer().getWorld((String) worlds.get(CurrentWorldsNumber)[0]);
+		wspawn = new Location(w, SpawnCoordX, SpawnCoordY, SpawnCoordZ);
+
 		System.out.println("[BuildFFA] Config loaded.");
 	}
 	
@@ -164,6 +188,19 @@ public class Config {
 	    String path11 = "BuildFFA.Stats.recordStats";
 	    cfg.addDefault(path11, false);    
 
+	    String path12a = "BuildFFA.Worlds.Number";
+	    cfg.addDefault(path12a, 1);
+	    String path12b = "BuildFFA.Worlds.world0.Name";
+	    cfg.addDefault(path12b, "world");
+	    String path12c = "BuildFFA.Worlds.world0.SpawnCoordX";
+	    cfg.addDefault(path12c, 0);
+	    String path12d = "BuildFFA.Worlds.world0.SpawnCoordY";
+	    cfg.addDefault(path12d, 60);
+	    String path12e = "BuildFFA.Worlds.world0.SpawnCoordZ";
+	    cfg.addDefault(path12e, 0);
+	    String path12f = "BuildFFA.Worlds.world0.MaxBuildHeight";
+	    cfg.addDefault(path12f, 50);
+	    
 	    cfg.options().copyDefaults(true);
 	    try {
 			cfg.save(file);

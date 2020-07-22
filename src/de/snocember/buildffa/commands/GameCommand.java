@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import de.snocember.buildffa.Config; 
 import de.snocember.buildffa.Main;
+import de.snocember.buildffa.background.GameChange;
 
 public class GameCommand implements CommandExecutor{
 	
@@ -55,6 +56,14 @@ public class GameCommand implements CommandExecutor{
 		    			p.sendMessage(Config.PluginPrefix+" §eSpawn geändert.");
 			    		return true;
 		    		}
+		    	}
+		    	if(args[0].equalsIgnoreCase("changeworld"))
+		    	{
+		    		GameChange.changeWorld();
+		    	}
+		    	if(args[0].equalsIgnoreCase("changekit"))
+		    	{
+		    		GameChange.changeDefaultKit();
 		    	}
 		    	
 			}
