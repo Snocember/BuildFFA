@@ -5,6 +5,7 @@ package de.snocember.buildffa;
 import java.util.Collection;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -51,7 +52,9 @@ public class Main extends JavaPlugin {
 		
 		Collection<? extends Player> playerlist = Bukkit.getServer().getOnlinePlayers();
 		for(Player p : playerlist) {
-			p.getInventory().clear();
+			if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
+				p.getInventory().clear();
+			}
 			p.teleport(Config.wspawn);
 			p.setHealth(20);
 		}

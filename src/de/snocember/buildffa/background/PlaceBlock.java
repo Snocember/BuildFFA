@@ -48,13 +48,26 @@ public class PlaceBlock implements Listener {
             	}
             	System.out.print("[BuildFFA] DEBUG: PlaceBlock: loc.getY()='"+loc.getY()+"'; MaxBuildHeight='"+Config.MaxBuildHeight.doubleValue()+"'");
             }
+            
+            if (loc.getX() >= Config.SpawnCoordX + Config.MaxBuildWidthX.doubleValue()) {
+            	e.setCancelled(true);
+            }
+            if (loc.getX() <= Config.SpawnCoordX - Config.MaxBuildWidthX.doubleValue()) {
+            	e.setCancelled(true);
+            }
+            if (loc.getZ() >= Config.SpawnCoordZ + Config.MaxBuildWidthZ.doubleValue()) {
+            	e.setCancelled(true);
+            }
+            if (loc.getZ() <= Config.SpawnCoordZ - Config.MaxBuildWidthZ.doubleValue()) {
+            	e.setCancelled(true);
+            }
+            
             if(Config.UnlimitedBlocks) {
             	if(block.getType().equals(Material.SANDSTONE)) {
             		e.getPlayer().getItemInHand();
         			e.getPlayer().getInventory().setItemInHand(e.getPlayer().getItemInHand());
         		}
             }
-            // TODO BlockRangeXY
         }
 	}
 }

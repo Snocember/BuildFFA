@@ -3,6 +3,7 @@ package de.snocember.buildffa.background;
 import java.util.Collection;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -21,6 +22,8 @@ public class GameChange {
 			Config.SpawnCoordY = Double.valueOf(Config.wspawn.getY());
 			Config.SpawnCoordZ = Double.valueOf(Config.wspawn.getZ());
 			Config.MaxBuildHeight = Double.valueOf( (Integer) Config.worlds.get(Config.CurrentWorldsNumber)[2] );
+			Config.MaxBuildWidthX = Double.valueOf( (Integer) Config.worlds.get(Config.CurrentWorldsNumber)[3] );
+			Config.MaxBuildWidthZ = Double.valueOf( (Integer) Config.worlds.get(Config.CurrentWorldsNumber)[4] );
 			
 			Config.w = Bukkit.getServer().getWorld((String) Config.worlds.get(Config.CurrentWorldsNumber)[0]);
 			Config.wspawn = new Location(Config.w, Config.SpawnCoordX, Config.SpawnCoordY, Config.SpawnCoordZ);
@@ -34,6 +37,8 @@ public class GameChange {
 			Config.SpawnCoordY = Double.valueOf(Config.wspawn.getY());
 			Config.SpawnCoordZ = Double.valueOf(Config.wspawn.getZ());
 			Config.MaxBuildHeight = Double.valueOf( (Integer) Config.worlds.get(Config.CurrentWorldsNumber)[2] );
+			Config.MaxBuildWidthX = Double.valueOf( (Integer) Config.worlds.get(Config.CurrentWorldsNumber)[3] );
+			Config.MaxBuildWidthZ = Double.valueOf( (Integer) Config.worlds.get(Config.CurrentWorldsNumber)[4] );
 			
 			Config.w = Bukkit.getServer().getWorld((String) Config.worlds.get(Config.CurrentWorldsNumber)[0]);
 			Config.wspawn = new Location(Config.w, Config.SpawnCoordX, Config.SpawnCoordY, Config.SpawnCoordZ);
@@ -41,7 +46,9 @@ public class GameChange {
 		}
 		Collection<? extends Player> playerlist = Bukkit.getServer().getOnlinePlayers();
 		for(Player p : playerlist) {
-			p.getInventory().clear();
+			if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
+				p.getInventory().clear();
+			}
 			p.teleport(Config.wspawn);
 		}
 	}
@@ -52,16 +59,20 @@ public class GameChange {
 		if (ConfigKits.CurrentKitNumber+1 != ConfigKits.KitsNumber) {
 			ConfigKits.CurrentKitNumber = ConfigKits.CurrentKitNumber +1;
 			for(Player p : playerlist) {
-				PlayerMovement.addKit(p, ConfigKits.CurrentKitNumber);
+				if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
+					PlayerMovement.addKit(p, ConfigKits.CurrentKitNumber);
+				}
 			}
-			System.out.println("[BuildFFA] Kit zu Kit Nr."+ConfigKits.CurrentKitNumber+1+" gewechselt.");
+			System.out.println("[BuildFFA] Kit zu Kit Nr."+(ConfigKits.CurrentKitNumber+1)+" gewechselt.");
 		}
 		else if (ConfigKits.CurrentKitNumber+1 == ConfigKits.KitsNumber) {
 			ConfigKits.CurrentKitNumber = 0;
 			for(Player p : playerlist) {
-				PlayerMovement.addKit(p, ConfigKits.CurrentKitNumber);
+				if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
+					PlayerMovement.addKit(p, ConfigKits.CurrentKitNumber);
+				}
 			}
-			System.out.println("[BuildFFA] Kit zu Anfangskit gewechselt.");
+			System.out.println("[BuildFFA] Kit zu Kit Nr."+(ConfigKits.CurrentKitNumber+1)+" gewechselt.");
 		}
 	}
 }

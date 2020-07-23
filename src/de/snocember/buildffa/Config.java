@@ -32,8 +32,11 @@ public class Config {
 	public static String Kill_TitleHeadline;
 	public static String Kill_TitleCaption;
 	
-	public static Boolean UnlimitedBlocks;	
+	public static Boolean UnlimitedBlocks;
+	
 	public static Double MaxBuildHeight;
+	public static Double MaxBuildWidthX;
+	public static Double MaxBuildWidthZ;
 	
 	public static Boolean GameruleKeepInventory;
 	
@@ -115,12 +118,15 @@ public class Config {
 			Double spawnCoordX = cfg.getDouble("BuildFFA.Worlds.world"+i+".SpawnCoordX");
 			Double spawnCoordY = cfg.getDouble("BuildFFA.Worlds.world"+i+".SpawnCoordY");
 			Double spawnCoordZ = cfg.getDouble("BuildFFA.Worlds.world"+i+".SpawnCoordZ");
-			Integer maxBuildHeight = cfg.getInt("BuildFFA.Worlds.world"+i+".MaxBuildHeight");
+			
+			Integer maxBuildHeight = cfg.getInt("BuildFFA.Worlds.world"+i+".MaxBuildHeight");	
+			Integer maxBuildWidthX = cfg.getInt("BuildFFA.Worlds.world"+i+".MaxBuildWidthX");
+			Integer maxBuildWidthZ = cfg.getInt("BuildFFA.Worlds.world"+i+".MaxBuildWidthZ");
 			
 			Bukkit.getServer().createWorld(new WorldCreator(name));
 			System.out.println("[BuildFFA] DEBUG: Welt '"+name+"' geladen.");
 			Location loc = new Location(w, spawnCoordX, spawnCoordY, spawnCoordZ);
-			worlds.add(new Object[] {name, loc, maxBuildHeight});
+			worlds.add(new Object[] {name, loc, maxBuildHeight, maxBuildWidthX, maxBuildWidthZ});
 		}
 		System.out.println("[BuildFFA] DEBUG: worlds: "+worlds);
 		
@@ -211,6 +217,12 @@ public class Config {
 	    cfg.addDefault(path12e, 0);
 	    String path12f = "BuildFFA.Worlds.world0.MaxBuildHeight";
 	    cfg.addDefault(path12f, 50);
+	    String path12g = "BuildFFA.Worlds.world0.MaxBuildWidth_Comment";
+	    cfg.addDefault(path12g, "Max. build width from spawn in x oder y direction.");
+	    String path12h = "BuildFFA.Worlds.world0.MaxBuildWidthX";
+	    cfg.addDefault(path12h, 100);
+	    String path12i = "BuildFFA.Worlds.world0.MaxBuildWidthZ";
+	    cfg.addDefault(path12i, 100);
 	    
 	    cfg.options().copyDefaults(true);
 	    try {
