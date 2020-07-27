@@ -34,8 +34,11 @@ public class StatsCommand implements CommandExecutor{
 			p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-");
 			int allKills = StatsSystem.getKills(uuid)[0];
 			int allDeaths = StatsSystem.getDeaths(uuid)[0];
-			if(allDeaths != 0) {
-				p.sendMessage("  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+allKills/allDeaths+"\n§7- - - - - - - - - - - - - -");
+			if (allKills == 0) {
+				p.sendMessage("  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+0+"\n§7- - - - - - - - - - - - - -");
+			}
+			else if (allDeaths != 0) {
+				p.sendMessage("  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+Math.round((allKills/allDeaths)*100.0)/100.0+"\n§7- - - - - - - - - - - - - -");
 			}
 			else {
 				p.sendMessage("  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+allKills+"\n§7- - - - - - - - - - - - - -");

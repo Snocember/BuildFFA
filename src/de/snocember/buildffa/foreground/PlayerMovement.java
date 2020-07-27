@@ -52,6 +52,7 @@ public class PlayerMovement implements Listener {
 		ArrayList<ItemStack> kit_armour = (ArrayList<ItemStack>) ConfigKits.kits_armour.get(KitNr);
 		Integer arraySize = kit.size();
 		
+		p.getInventory().clear();
 		for(int i=0; i<arraySize; i++) {
 			p.getInventory().setItem(i, kit.get(i));
 		}

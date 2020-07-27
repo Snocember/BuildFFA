@@ -44,13 +44,7 @@ public class GameChange {
 			Config.wspawn = new Location(Config.w, Config.SpawnCoordX, Config.SpawnCoordY, Config.SpawnCoordZ);
 			System.out.println("[BuildFFA] Map zu Anfangsmap gewechselt. ('"+Config.w.getName()+"')");
 		}
-		Collection<? extends Player> playerlist = Bukkit.getServer().getOnlinePlayers();
-		for(Player p : playerlist) {
-			if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
-				p.getInventory().clear();
-			}
-			p.teleport(Config.wspawn);
-		}
+		clearTeleportHeal();
 	}
 	
 	public static void changeDefaultKit() {
@@ -60,7 +54,9 @@ public class GameChange {
 			ConfigKits.CurrentKitNumber = ConfigKits.CurrentKitNumber +1;
 			for(Player p : playerlist) {
 				if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
-					PlayerMovement.addKit(p, ConfigKits.CurrentKitNumber);
+					if(p.getLocation().getY() <= Config.SpawnCoordY -4.0) {
+						PlayerMovement.addKit(p, ConfigKits.CurrentKitNumber);
+					}
 				}
 			}
 			System.out.println("[BuildFFA] Kit zu Kit Nr."+(ConfigKits.CurrentKitNumber+1)+" gewechselt.");
@@ -69,10 +65,30 @@ public class GameChange {
 			ConfigKits.CurrentKitNumber = 0;
 			for(Player p : playerlist) {
 				if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
-					PlayerMovement.addKit(p, ConfigKits.CurrentKitNumber);
+					if(p.getLocation().getY() <= Config.SpawnCoordY -4.0) {
+						PlayerMovement.addKit(p, ConfigKits.CurrentKitNumber);
+					}
 				}
 			}
 			System.out.println("[BuildFFA] Kit zu Kit Nr."+(ConfigKits.CurrentKitNumber+1)+" gewechselt.");
+		}
+	}
+	public static void clear() {
+		Collection<? extends Player> playerlist = Bukkit.getServer().getOnlinePlayers();
+		for(Player p : playerlist) {
+			if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
+				p.getInventory().clear();
+			}
+		}
+	}
+	public static void clearTeleportHeal() {
+		Collection<? extends Player> playerlist = Bukkit.getServer().getOnlinePlayers();
+		for(Player p : playerlist) {
+			if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
+				p.getInventory().clear();
+			}
+			p.teleport(Config.wspawn);
+			p.setHealth(20);
 		}
 	}
 }

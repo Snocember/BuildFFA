@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import de.snocember.buildffa.database.API;
+
 @SuppressWarnings("unused")
 public class StatsSystem {
 	public static Map<UUID, int[]> deathMap = new HashMap<UUID, int[]>();
@@ -13,18 +18,18 @@ public class StatsSystem {
 	public static Map<UUID, int[]> killStreakMap = new HashMap<UUID, int[]>();
 	// killStreakMap.get(uuid), [0] killStreak, [1] killStreakRecord
 	
-	public static void loadProfile(UUID uuid) {
-		// TODO load deaths
-		// TODO load kills
+	public static void LoadProfile(UUID uuid) {
+		Integer[] stats = API.GetStatsAll(Bukkit.getPlayer(uuid).getName());
+		System.out.println("[BuildFFA] DEBUG: (StatsSystem:LoadProfile): "+stats[0]+" "+stats[1]);
 		// TODO load killStreak and Record
-		deathMap.put(uuid, new int[] {0, 0, 0});
-		killMap.put(uuid, new int[] {0, 0, 0});
+		killMap.put(uuid, new int[] {stats[0], 0, 0});
+		deathMap.put(uuid, new int[] {stats[1], 0, 0});
 		killStreakMap.put(uuid, new int[] {0, 0});
 		// TODO falls keine Connection -> Ersatzwerte, da sonst unendlich schleife
 		
 	}
 	
-	public static boolean unloadProfile(UUID uuid) {
+	public static boolean UnloadProfile(UUID uuid) {
 		try {
 			if(saveProfile(uuid)) {
 				deathMap.remove(uuid);
@@ -43,8 +48,7 @@ public class StatsSystem {
 	
 	public static boolean saveProfile(UUID uuid) {
 		try {
-			// TODO save deaths
-			// TODO save kills
+			API.SetStatsAll(String.valueOf(uuid), killMap.get(uuid)[0], deathMap.get(uuid)[0]);
 			// TODO save killStreakRecord
 			return true;
 		}
@@ -60,7 +64,7 @@ public class StatsSystem {
 			return deaths;
 		}
 		catch (NullPointerException e) {
-			loadProfile(uuid);
+			LoadProfile(uuid);
 			return deathMap.get(uuid);
 		}
 	}
@@ -72,7 +76,7 @@ public class StatsSystem {
 			return kills;
 		}
 		catch (NullPointerException e) {
-			loadProfile(uuid);
+			LoadProfile(uuid);
 			return killMap.get(uuid);
 		}
 	}
@@ -84,7 +88,7 @@ public class StatsSystem {
 			return killStreak;
 		}
 		catch (NullPointerException e) {
-			loadProfile(uuid);
+			LoadProfile(uuid);
 			return killStreakMap.get(uuid);
 		}
 	}
@@ -96,10 +100,11 @@ public class StatsSystem {
 			deaths = getDeaths(uuid);
 		}
 		catch (NullPointerException e) {
-			loadProfile(uuid);
+			LoadProfile(uuid);
 			deaths = getDeaths(uuid);
 		}
 		deathMap.put(uuid, new int[] {deaths[0]+1, deaths[1]+1, deaths[2]+1});
+		API.UpdateStatsAll(Bukkit.getPlayer(uuid).getName(), "0", "1");
 		int killStreakRecord = getKillStreak(uuid)[1];
 		killStreakMap.put(uuid, new int[] {0, killStreakRecord});
 		return true;
@@ -112,10 +117,11 @@ public class StatsSystem {
 			kills = getKills(uuid);
 		}
 		catch (NullPointerException e) {
-			loadProfile(uuid);
+			LoadProfile(uuid);
 			kills = getKills(uuid);
 		}
 		killMap.put(uuid, new int[] {kills[0]+1, kills[1]+1, kills[2]+1});
+		API.UpdateStatsAll(Bukkit.getPlayer(uuid).getName(), "1", "0");
 		int killStreak = getKillStreak(uuid)[0];
 		int killStreakRecord = getKillStreak(uuid)[1];
 		

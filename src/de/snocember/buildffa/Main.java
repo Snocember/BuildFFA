@@ -2,19 +2,17 @@
 // dev.snocember.de | dev@snocember.de
 package de.snocember.buildffa;
 
-import java.util.Collection;
-
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.snocember.buildffa.background.AutoGameChangeQueue;
+import de.snocember.buildffa.background.GameChange;
 import de.snocember.buildffa.background.NoDamage;
 import de.snocember.buildffa.background.NoDrop;
 import de.snocember.buildffa.background.NoHunger;
 import de.snocember.buildffa.background.PlaceBlock;
 import de.snocember.buildffa.commands.GameCommand;
+import de.snocember.buildffa.database.ConfigDB;
+import de.snocember.buildffa.database.DBController;
 import de.snocember.buildffa.foreground.BreakBlock;
 import de.snocember.buildffa.foreground.PlayerDeath;
 import de.snocember.buildffa.foreground.PlayerJoinLeave;
@@ -25,12 +23,14 @@ import de.snocember.buildffa.stats.StatsCommand;
 
 public class Main extends JavaPlugin {
 	
-	public static String DebugOn = "0";
+	public static String DebugOn = "1";
+	public static Boolean aliveService = true;
 	
 	@Override
 	public void onEnable() {
 		new Config(this);
 		new ConfigKits(this);
+		new ConfigDB(this);
 		
 		new GameCommand(this);
 		new StatsCommand(this);
@@ -50,14 +50,9 @@ public class Main extends JavaPlugin {
 		
 		new AutoGameChangeQueue(this);
 		
-		Collection<? extends Player> playerlist = Bukkit.getServer().getOnlinePlayers();
-		for(Player p : playerlist) {
-			if(p.getGameMode() == GameMode.ADVENTURE | p.getGameMode() == GameMode.SURVIVAL) {
-				p.getInventory().clear();
-			}
-			p.teleport(Config.wspawn);
-			p.setHealth(20);
-		}
+		GameChange.clearTeleportHeal();
+		DBController.initDBConnection();
+		
 				
 	}
 }
