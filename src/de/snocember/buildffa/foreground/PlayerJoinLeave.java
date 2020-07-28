@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,8 +49,9 @@ public class PlayerJoinLeave implements Listener {
 	    if(Config.Join_ShowTitleWhenJoin) {
 	    	p.sendTitle(Config.Join_TitleHeadline, Config.Join_TitleCaption);
 	    }
-	    p.sendMessage(Config.PluginPrefix+" §cTeams sind auf diesem Server §4verboten§c!");
+	    p.sendMessage(Config.JoinMessageToPlayer);
 	    p.teleport(Config.wspawn);
+	    p.setGameMode(GameMode.ADVENTURE);
 	    
 	    try {
 		    if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] DEBUG: Test: ist DB-Eintrag vorhanden?");}

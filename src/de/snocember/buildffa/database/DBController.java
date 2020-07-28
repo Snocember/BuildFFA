@@ -82,7 +82,7 @@ public class DBController extends JavaPlugin {
     /** Datensätze werden hinzugefügt oder verändert und die Verbindung geschlossen.</br>
      * Danach werden alle Datensätze der Tabelle ausgegeben.*/
     public static void handleDB() {
-    	if (Main.DebugOn.equals(1)) {System.out.println("[BuildFFA] q_action:"+q_action+", q_pid:"+q_pid+", q_kills:"+q_kills+", q_deaths:"+q_deaths);}
+    	if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] q_action:"+q_action+", q_pid:"+q_pid+", q_kills:"+q_kills+", q_deaths:"+q_deaths);}
     	if (Main.aliveService) {
     		try {
         	Statement stmt = connection.createStatement(); 
@@ -94,7 +94,7 @@ public class DBController extends JavaPlugin {
  
             /** Schleifenblock, der alle Vorgänge ausführt.*/
             while (!q_pid.isEmpty()) {
-            	if (Main.DebugOn.equals(1)) {System.out.println("[BuildFFA] DEBUG: Whoooo NEUE SCHLEIFE"); }
+            	if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] DEBUG: Whoooo NEUE SCHLEIFE"); }
             	if (q_action.get(0).equalsIgnoreCase("NEW")){
             		psNew.setString(1, q_pid.get(0));
             		psNew.setInt(2, q_kills.get(0));
@@ -109,8 +109,8 @@ public class DBController extends JavaPlugin {
             	}
             	else if (q_action.get(0).equalsIgnoreCase("UPDATE") ){
             		ResultSet rs1 = stmt.executeQuery("SELECT statsAllKills, statsAllDeaths FROM "+ConfigDB.StatsTableName+" WHERE playerid = '"+q_pid.get(0)+"';");
-                	if (Main.DebugOn.equals(1)) {System.out.println("[BuildFFA] Kills:"+rs1.getString("statsAllKills")+", Deaths:"+rs1.getString("statsAllDeaths"));}
                     rs1.next();
+                    if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] Vorher: Kills:"+rs1.getString("statsAllKills")+", Deaths:"+rs1.getString("statsAllDeaths"));}
                 	Integer resultKills = Integer.valueOf(rs1.getString("statsAllKills"));
                     Integer resultDeaths = Integer.valueOf(rs1.getString("statsAllDeaths"));
                     
@@ -134,7 +134,7 @@ public class DBController extends JavaPlugin {
                     psUpdate.setInt(2, q_deaths.get(0));
                     psUpdate.setString(3, q_pid.get(0));
                     psUpdate.addBatch();
-                	
+                    if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] Jetzt: Kills:"+q_kills.get(0)+", Deaths:"+q_deaths.get(0));}
                     try {
                     	removeIndex0();
                     } catch (IndexOutOfBoundsException e2){
@@ -148,6 +148,8 @@ public class DBController extends JavaPlugin {
             psNew.executeBatch();
             connection.setAutoCommit(true); 
             stmt.close();
+            psNew.close();
+            psUpdate.close();
            
               
         } catch (SQLException e) { 

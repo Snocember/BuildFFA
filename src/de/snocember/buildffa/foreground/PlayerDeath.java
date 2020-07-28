@@ -10,8 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import de.snocember.buildffa.Config;
 import de.snocember.buildffa.Main;
@@ -39,8 +37,9 @@ public class PlayerDeath implements Listener {
         	String killer = k.getName();
         	event.setDeathMessage(Config.KillDeathMsgBeforeKillerName+ killer + Config.KillDeathMsgBetweenNames + p.getName() +Config.KillDeathMsgAfterPlayerName);
         	k.sendTitle("", "§2+ Kill");
-        	k.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3, 10, false, false));
-        	StatsSystem.addKill(p.getUniqueId());
+//        	k.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3, 10, false, false));
+        	k.setHealth(20);
+        	StatsSystem.addKill(k.getUniqueId());
         	k.playSound(k.getLocation(), Sound.ORB_PICKUP, (float) 100, (float) 0.8);
         	
         	p.getInventory().clear();

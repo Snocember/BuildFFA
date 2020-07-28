@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import de.snocember.buildffa.Config; 
 import de.snocember.buildffa.Main;
 import de.snocember.buildffa.background.GameChange;
+import de.snocember.buildffa.stats.StatsSystem;
 
 public class GameCommand implements CommandExecutor{
 	
@@ -57,20 +58,30 @@ public class GameCommand implements CommandExecutor{
 			    		return true;
 		    		}
 		    	}
-		    	if(args[0].equalsIgnoreCase("changeworld"))
+		    	else if(args[0].equalsIgnoreCase("changeworld"))
 		    	{
 		    		GameChange.changeWorld();
+		    		return true;
 		    	}
-		    	if(args[0].equalsIgnoreCase("changekit"))
+		    	else if(args[0].equalsIgnoreCase("changekit"))
 		    	{
 		    		GameChange.changeDefaultKit();
+		    		return true;
 		    	}
-		    	
+		    	else if(args[0].equalsIgnoreCase("simulate-kill")) // TODO NICHT für die produktion!
+		    	{
+		    		StatsSystem.addKill(p.getUniqueId());
+		    		return true;
+		    	}
+		    	else {
+					p.sendMessage(Config.PluginPrefix+" §cSchreibe einfach \"/buildffa help\".");
+					return false;
+				}
 			}
 		}
 		else {
 			p.sendMessage(Config.PluginPrefix+" §cSchreibe einfach \"/buildffa help\".");
-			return true;
+			return false;
 		}
 		return false;
 	}

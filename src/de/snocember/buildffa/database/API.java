@@ -93,7 +93,7 @@ public class API {
 		return status;
 		
 	}
-	public static boolean UpdateStatsAll(String player, String kills, String deaths) {
+	public static boolean UpdateStatsAll(String player, int kills, int deaths) {
 		boolean status = false;
 		OfflinePlayer theplayer = Bukkit.getOfflinePlayer(player);
 		String thepid = String.valueOf(theplayer.getUniqueId());

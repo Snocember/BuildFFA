@@ -31,17 +31,17 @@ public class StatsCommand implements CommandExecutor{
 		UUID uuid = p.getUniqueId();
 		
 		if ((cmd.getName().equalsIgnoreCase("stats")) && (args.length == 0)) {
-			p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-");
+			//p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-");
 			int allKills = StatsSystem.getKills(uuid)[0];
 			int allDeaths = StatsSystem.getDeaths(uuid)[0];
 			if (allKills == 0) {
-				p.sendMessage("  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+0+"\n§7- - - - - - - - - - - - - -");
+				p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+0+"\n§7- - - - - - - - - - - - - -");
 			}
 			else if (allDeaths != 0) {
-				p.sendMessage("  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+Math.round((allKills/allDeaths)*100.0)/100.0+"\n§7- - - - - - - - - - - - - -");
+				p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+Math.round((Double.valueOf(allKills)/Double.valueOf(allDeaths))*100.0)/100.0+"\n§7- - - - - - - - - - - - - -");
 			}
 			else {
-				p.sendMessage("  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+allKills+"\n§7- - - - - - - - - - - - - -");
+				p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+allKills+"\n§7- - - - - - - - - - - - - -");
 			}
 			// TODO Stats
 	    	return true;

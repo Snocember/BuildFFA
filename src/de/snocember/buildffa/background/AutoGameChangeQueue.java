@@ -48,8 +48,8 @@ public class AutoGameChangeQueue {
 			
 			public void run() {
 				if(Main.aliveService) {
-					DBController.handleDB();
 					System.out.println("[BuildFFA] DEBUG: (AutoGameChangeQueue.startStatsQueue) neuer Durchlauf!");
+					DBController.handleDB();
 				}
 		    }
 		}.runTaskTimer(plugin, 0L, (20L*10)); // 20L = 1 sek

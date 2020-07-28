@@ -20,6 +20,8 @@ public class Config {
 	
 	public static String PluginPrefix;
 	
+	public static String JoinMessageToPlayer;
+	
 	public static Boolean Join_ShowTitleWhenJoin;
 	public static String Join_TitleHeadline;
 	public static String Join_TitleCaption;
@@ -74,6 +76,8 @@ public class Config {
 		loadConfiguration();
 		
 		PluginPrefix = cfg.getString("BuildFFA.PluginPrefix").replaceAll("&", "§");
+		
+		JoinMessageToPlayer = cfg.getString("BuildFFA.JoinMessageToPlayer").replaceAll("&", "§");
 		
 		Join_ShowTitleWhenJoin = cfg.getBoolean("BuildFFA.Titles.JoinTitle.ShowTitleWhenJoin");
 		Join_TitleHeadline = cfg.getString("BuildFFA.Titles.JoinTitle.Headline").replaceAll("&", "§");
@@ -149,6 +153,8 @@ public class Config {
 	public static void loadConfiguration() {
 		String path = "BuildFFA.PluginPrefix";
 	    cfg.addDefault(path, "§8[§dBuildFFA§8]");
+	    String path0a = "BuildFFA.JoinMessageToPlayer";
+	    cfg.addDefault(path0a, "§8[§dBuildFFA§8] §cTeams sind auf diesem Server §4verboten§c!");
 		String path0 = "BuildFFA.Titles.JoinTitle.ShowTitleWhenJoin";
 	    cfg.addDefault(path0, true);
 	    String path1 = "BuildFFA.Titles.JoinTitle.Headline";
