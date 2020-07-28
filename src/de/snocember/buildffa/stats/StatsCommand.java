@@ -58,10 +58,12 @@ public class StatsCommand implements CommandExecutor{
 			try {
 				if (p.hasPermission("buildffa.otherstats")) {
 					@SuppressWarnings("deprecation")
-					OfflinePlayer thep = Bukkit.getOfflinePlayer(args[1]);
-					int allKills = StatsSystem.getKills(uuid)[0];
-					int allDeaths = StatsSystem.getDeaths(uuid)[0];
-				
+					OfflinePlayer thep = Bukkit.getOfflinePlayer(args[0]);
+					UUID theuuid = thep.getUniqueId();
+					int allKills = StatsSystem.getKills(theuuid)[0];
+					int allDeaths = StatsSystem.getDeaths(theuuid)[0];
+					@SuppressWarnings("unused")
+					int test = allKills+1;
 					if (allKills == 0) {
 						p.sendMessage("§7-= §eStatistiken von §6"+thep.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+0+"\n§7- - - - - - - - - - - - - -");
 					}
@@ -71,14 +73,13 @@ public class StatsCommand implements CommandExecutor{
 					else {
 						p.sendMessage("§7-= §eStatistiken von §6"+thep.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+allKills+"\n§7- - - - - - - - - - - - - -");
 					}
-					p.sendMessage(Config.PluginPrefix+" §eStats eines anderen Spielers.");
-					// TODO Stats eines anderen Spielers.    	
 				}
 				else {
 					p.sendMessage(Config.PluginPrefix+" §cDu hast keine Berechtigungen, Stats anderer Spieler zu sehen.");
 				}
 			}
 			catch (NullPointerException e) {
+				p.sendMessage(Config.PluginPrefix+" §cEs gibt keine Statistiken von diesem Spieler.");
 	    		System.err.println("[BuildFFA] Fehler beim Abrufen der Statistiken.");
 	    		return false;
 			}
