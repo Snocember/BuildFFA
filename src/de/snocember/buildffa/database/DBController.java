@@ -1,4 +1,5 @@
-// (c) Snocember (#8770 auf Discord), 2019
+// (c) Snocember (#8770 auf Discord), 2019-20
+// dev.snocember.de | dev@snocember.de
 package de.snocember.buildffa.database;
 
 import java.sql.Connection;
@@ -34,17 +35,21 @@ public class DBController extends JavaPlugin {
     public static void initDBConnection() { 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("[BuildFFA] connection: jdbc:mysql://"+ ConfigDB.Host + ":" + ConfigDB.Port + "/" +
-            		ConfigDB.DatabaseName +","+ ConfigDB.Username +","+ ConfigDB.Password); 
+            if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: connection: jdbc:mysql://"+ ConfigDB.Host + ":" + ConfigDB.Port + "/" +
+            		ConfigDB.DatabaseName +","+ ConfigDB.Username +","+ ConfigDB.Password); }
             connection = (Connection) DriverManager.getConnection("jdbc:mysql://"+ ConfigDB.Host + ":" + ConfigDB.Port + "/" +
             		ConfigDB.DatabaseName, ConfigDB.Username, ConfigDB.Password);
-            System.out.println("[BuildFFA] Datenbank erfolgreich geöffnet.");
+            System.out.println("[BuildFFA] "+"\033[32m"+"Datenbank erfolgreich geöffnet."+"\033[0m");
         }	
     	catch (SQLException e) { 
-    		System.err.println("[BuildFFA] SQLException Errors");
-    		e.printStackTrace();
+    		System.err.println("[BuildFFA] "+"\033[91m"+"SQLException Errors | Verbindung zur Datenbank konnte nicht hergestellt werden."+"\033[0m");
+    		if (Main.DebugOn == true) { e.printStackTrace(); }
+    		Main.aliveService = false;
+    		return;
         } catch (ClassNotFoundException e) {
-        	System.err.println("[BuildFFA] ClassNotFoundException Error");
+        	System.err.println("[BuildFFA] "+"\033[91m"+"ClassNotFoundException Error"+"\033[0m");
+        	Main.aliveService = false;
+        	return;
 		} 
     	
         Runtime.getRuntime().addShutdownHook(new Thread() { 
@@ -53,10 +58,10 @@ public class DBController extends JavaPlugin {
                     if (!connection.isClosed() && connection != null) { 
                         connection.close(); 
                         if (connection.isClosed()) 
-                            System.out.println("[BuildFFA] Verbindung zur Datenbank geschlossen."); 
+                            System.out.println("[BuildFFA] "+"\033[32m"+"Verbindung zur Datenbank geschlossen."+"\033[0m"); 
                     } 
                 } catch (SQLException e) { 
-                    e.printStackTrace(); 
+                	if (Main.DebugOn == true) { e.printStackTrace(); }
                 } 
             } 
         });
@@ -66,15 +71,16 @@ public class DBController extends JavaPlugin {
 			ResultSet rs1 = stmt.executeQuery("SELECT * FROM "+ConfigDB.StatsTableName);
         }
         catch (SQLException e1) {
-        	System.err.println("[BuildFFA] Fehler: Tabelle '"+ConfigDB.StatsTableName+"' nicht verfügbar. Wird neu erstellt...");
+        	System.err.println("[BuildFFA] "+"\033[91m"+"Fehler: Tabelle '"+ConfigDB.StatsTableName+"' nicht verfügbar. "+"\033[93m"+"Wird neu erstellt..."+"\033[0m");
         	//e1.printStackTrace();
         	try {
         	Statement stmt = connection.createStatement();
         	stmt.executeUpdate("CREATE TABLE "+ConfigDB.StatsTableName+" (playerid VARCHAR(200), statsAllKills INT(255), statsAllDeaths INT(255));"); // TODO 30days stats
+        	System.err.println("[BuildFFA] "+"\033[32m"+"Tabelle '"+ConfigDB.StatsTableName+"' wurde neu erstellt."+"\033[0m");
         	}
         	catch (SQLException e2) {
-        		System.err.println("[BuildFFA] Fehler beim Erstellen fehlender Tabelle '"+ConfigDB.StatsTableName+"'."); 
-        		e2.printStackTrace();
+        		System.err.println("[BuildFFA] "+"\033[91m"+"Fehler beim Erstellen fehlender Tabelle '"+ConfigDB.StatsTableName+"'."+"\033[0m"); 
+        		if (Main.DebugOn == true) { e2.printStackTrace(); }
         	}
         }
     }
@@ -110,7 +116,7 @@ public class DBController extends JavaPlugin {
             	else if (q_action.get(0).equalsIgnoreCase("UPDATE") ){
             		ResultSet rs1 = stmt.executeQuery("SELECT statsAllKills, statsAllDeaths FROM "+ConfigDB.StatsTableName+" WHERE playerid = '"+q_pid.get(0)+"';");
                     rs1.next();
-                    if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] Vorher: Kills:"+rs1.getString("statsAllKills")+", Deaths:"+rs1.getString("statsAllDeaths"));}
+                    if (Main.DebugOn == true) { System.out.println("[BuildFFA] Vorher: Kills:"+rs1.getString("statsAllKills")+", Deaths:"+rs1.getString("statsAllDeaths"));}
                 	Integer resultKills = Integer.valueOf(rs1.getString("statsAllKills"));
                     Integer resultDeaths = Integer.valueOf(rs1.getString("statsAllDeaths"));
                     
@@ -134,7 +140,7 @@ public class DBController extends JavaPlugin {
                     psUpdate.setInt(2, q_deaths.get(0));
                     psUpdate.setString(3, q_pid.get(0));
                     psUpdate.addBatch();
-                    if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] Jetzt: Kills:"+q_kills.get(0)+", Deaths:"+q_deaths.get(0));}
+                    if (Main.DebugOn == true) { System.out.println("[BuildFFA] Jetzt: Kills:"+q_kills.get(0)+", Deaths:"+q_deaths.get(0));}
                     try {
                     	removeIndex0();
                     } catch (IndexOutOfBoundsException e2){
@@ -153,16 +159,16 @@ public class DBController extends JavaPlugin {
            
               
         } catch (SQLException e) { 
-            System.err.println("[BuildFFA] Couldn't handle DB-Query (SQLError)"); 
-            e.printStackTrace();
+            System.err.println("[BuildFFA] "+"\033[91m"+"Couldn't handle DB-Query (SQLError)§r"+"\033[0m"); 
+            if (Main.DebugOn == true) { e.printStackTrace(); }
             removeIndex0();
-            System.err.println("[BuildFFA] Letzter Auftrag wurde verworfen.");
+            System.err.println("[BuildFFA] "+"\033[91m"+"Letzter Auftrag wurde verworfen."+"\033[0m");
         }
         catch (Exception e2) { 
-            System.err.println("[BuildFFA] Couldn't handle DB-Query (Exception)"); 
-            e2.printStackTrace();
+            System.err.println("[BuildFFA] "+"\033[91m"+"Couldn't handle DB-Query (Exception)"+"\033[0m"); 
+            if (Main.DebugOn == true) { e2.printStackTrace(); }
             removeIndex0();
-            System.err.println("[BuildFFA] Letzter Auftrag wurde verworfen.");
+            System.err.println("[BuildFFA] "+"\033[91m"+"Letzter Auftrag wurde verworfen.§r"+"\033[0m");
         }
     }
     }

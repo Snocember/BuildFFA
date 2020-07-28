@@ -49,9 +49,9 @@ public class NoDamage implements Listener {
         Player p = (Player) e.getEntity();
         Location ploc = p.getLocation();
         Double ploc_y = ploc.getY();
-        System.out.println("[BuildFFA] DEBUG: PVP: Y: "+ploc_y);
+        if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: PVP: Y: "+ploc_y); }
         if(ploc_y >= Config.SpawnCoordY -4.0) {
-        	System.out.println("[BuildFFA] DEBUG: PVP cancelled.");
+        	if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: PVP cancelled."); }
         	e.setCancelled(true);
         }
 	}

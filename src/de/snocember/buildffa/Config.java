@@ -94,7 +94,7 @@ public class Config {
 		UnlimitedBlocks = cfg.getBoolean("BuildFFA.UnlimitedBlocks");
 		
 		GameruleKeepInventory = cfg.getBoolean("BuildFFA.KeepInventory");
-		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doFireTick "+GameruleKeepInventory);
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule keepInventory "+GameruleKeepInventory);
 		
 		DeathMsgBeforePlayerName = cfg.getString("BuildFFA.Death.MsgBeforePlayerName").replaceAll("&", "§");
 		DeathMsgAfterPlayerName = cfg.getString("BuildFFA.Death.MsgAfterPlayerName").replaceAll("&", "§");
@@ -102,8 +102,6 @@ public class Config {
 		KillDeathMsgBeforeKillerName = cfg.getString("BuildFFA.KillDeath.MsgBeforeKillerName").replaceAll("&", "§");
 		KillDeathMsgBetweenNames = cfg.getString("BuildFFA.KillDeath.MsgBetweenNames").replaceAll("&", "§");
 		KillDeathMsgAfterPlayerName = cfg.getString("BuildFFA.KillDeath.MsgAfterPlayerName").replaceAll("&", "§");
-		
-		// TODO World Name
 		
 		SrvVersionString = Bukkit.getServer().getVersion();
 		System.out.println("[BuildFFA] Server-Version: "+SrvVersionString);
@@ -128,11 +126,11 @@ public class Config {
 			Integer maxBuildWidthZ = cfg.getInt("BuildFFA.Worlds.world"+i+".MaxBuildWidthZ");
 			
 			Bukkit.getServer().createWorld(new WorldCreator(name));
-			System.out.println("[BuildFFA] DEBUG: Welt '"+name+"' geladen.");
+			System.out.println("[BuildFFA] Welt '"+name+"' geladen.");
 			Location loc = new Location(w, spawnCoordX, spawnCoordY, spawnCoordZ);
 			worlds.add(new Object[] {name, loc, maxBuildHeight, maxBuildWidthX, maxBuildWidthZ});
 		}
-		System.out.println("[BuildFFA] DEBUG: worlds: "+worlds);
+		if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: worlds: "+worlds);}
 		
 		CurrentWorldsNumber = 0;
 		wspawn = (Location) worlds.get(CurrentWorldsNumber)[1];

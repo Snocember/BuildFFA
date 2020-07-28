@@ -4,6 +4,8 @@ package de.snocember.buildffa.stats;
 
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
@@ -31,29 +33,54 @@ public class StatsCommand implements CommandExecutor{
 		UUID uuid = p.getUniqueId();
 		
 		if ((cmd.getName().equalsIgnoreCase("stats")) && (args.length == 0)) {
-			//p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-");
-			int allKills = StatsSystem.getKills(uuid)[0];
-			int allDeaths = StatsSystem.getDeaths(uuid)[0];
-			if (allKills == 0) {
-				p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+0+"\n§7- - - - - - - - - - - - - -");
+			try {
+				int allKills = StatsSystem.getKills(uuid)[0];
+				int allDeaths = StatsSystem.getDeaths(uuid)[0];
+			
+				if (allKills == 0) {
+					p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+0+"\n§7- - - - - - - - - - - - - -");
+				}
+				else if (allDeaths != 0) {
+					p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+Math.round((Double.valueOf(allKills)/Double.valueOf(allDeaths))*100.0)/100.0+"\n§7- - - - - - - - - - - - - -");
+				}
+				else {
+					p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+allKills+"\n§7- - - - - - - - - - - - - -");
+				}
+				return true;
 			}
-			else if (allDeaths != 0) {
-				p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+Math.round((Double.valueOf(allKills)/Double.valueOf(allDeaths))*100.0)/100.0+"\n§7- - - - - - - - - - - - - -");
+	    	catch (NullPointerException e) {
+	    		if (Main.DebugOn == true) { System.err.println("[BuildFFA] Fehler beim Abrufen der Statistiken."); }
+	    		return false;
 			}
-			else {
-				p.sendMessage("§7-= §eStatistiken von §6"+p.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+allKills+"\n§7- - - - - - - - - - - - - -");
-			}
-			// TODO Stats
-	    	return true;
 
 	    }
 		else if ((cmd.getName().equalsIgnoreCase("stats")) && (args.length != 0)) {
-			if (p.hasPermission("buildffa.otherstats")) {
-		    	p.sendMessage(Config.PluginPrefix+" §eStats eines anderen Spielers.");
-		    	// TODO Stats eines anderen Spielers.    	
+			try {
+				if (p.hasPermission("buildffa.otherstats")) {
+					@SuppressWarnings("deprecation")
+					OfflinePlayer thep = Bukkit.getOfflinePlayer(args[1]);
+					int allKills = StatsSystem.getKills(uuid)[0];
+					int allDeaths = StatsSystem.getDeaths(uuid)[0];
+				
+					if (allKills == 0) {
+						p.sendMessage("§7-= §eStatistiken von §6"+thep.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+0+"\n§7- - - - - - - - - - - - - -");
+					}
+					else if (allDeaths != 0) {
+						p.sendMessage("§7-= §eStatistiken von §6"+thep.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+Math.round((Double.valueOf(allKills)/Double.valueOf(allDeaths))*100.0)/100.0+"\n§7- - - - - - - - - - - - - -");
+					}
+					else {
+						p.sendMessage("§7-= §eStatistiken von §6"+thep.getName()+" §e(Alltime) §7=-\n  §7Kills: §e"+allKills+"\n  §7Deaths: §e"+allDeaths+"\n  §7K/D: §e"+allKills+"\n§7- - - - - - - - - - - - - -");
+					}
+					p.sendMessage(Config.PluginPrefix+" §eStats eines anderen Spielers.");
+					// TODO Stats eines anderen Spielers.    	
+				}
+				else {
+					p.sendMessage(Config.PluginPrefix+" §cDu hast keine Berechtigungen, Stats anderer Spieler zu sehen.");
+				}
 			}
-			else {
-				p.sendMessage(Config.PluginPrefix+" §cDu hast keine Berechtigungen, Stats anderer Spieler zu sehen.");
+			catch (NullPointerException e) {
+	    		System.err.println("[BuildFFA] Fehler beim Abrufen der Statistiken.");
+	    		return false;
 			}
 		}
 		return false;

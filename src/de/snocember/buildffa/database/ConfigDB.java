@@ -35,7 +35,7 @@ public class ConfigDB {
 		Type = 	cfg.getString		("Database.Type");
 		Host = 	cfg.getString		("Database.Host");
 		Port = 	cfg.getInt			("Database.Port");
-		System.out.println("[BuildFFA] DEBUG: Port: "+Port);
+		if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: Port: "+Port); }
 		DatabaseName = cfg.getString("Database.DatabaseName");
 		Username = cfg.getString	("Database.Username");
 		Password = cfg.getString	("Database.Password");

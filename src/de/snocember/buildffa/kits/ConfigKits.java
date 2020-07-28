@@ -69,21 +69,21 @@ public class ConfigKits {
 			kitMap.put("Kits.kit"+i+".ItemsFromslot0", ItemsFromslot0);
 			
 			for(int u=0; u<ItemsFromslot0; u++) {
-				System.out.print("[BuildFFA] DEBUG: ConfigKits: i="+i+",u="+u);
+				if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: ConfigKits: i="+i+",u="+u); }
 				String itemMaterial = cfg.getString("Kits.kit"+i+".slot"+u+".ItemStackMaterial");
-				System.out.print("[BuildFFA] DEBUG: ConfigKits: itemMaterial="+itemMaterial);
+				if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: ConfigKits: itemMaterial="+itemMaterial); }
 				Integer itemAmount = cfg.getInt("Kits.kit"+i+".slot"+u+".StackAmount");
 				ItemStack item = new ItemStack(Material.getMaterial(itemMaterial), itemAmount);
 				ItemMeta itemM = item.getItemMeta();
 
 				String itemDisplayName = cfg.getString("Kits.kit"+i+".slot"+u+".DisplayName").replaceAll("&", "§");
-				System.out.print("[BuildFFA] DEBUG: ConfigKits: itemDisplayName="+itemDisplayName);
+				if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: ConfigKits: itemDisplayName="+itemDisplayName); }
 				itemM.setDisplayName(itemDisplayName);
 
 				Boolean itemHasDescription = cfg.getBoolean("Kits.kit"+i+".slot"+u+".Description.hasDescription");
 				if(itemHasDescription) {
 					String itemDescription1 = cfg.getString("Kits.kit"+i+".slot"+u+".Description.Description1").replaceAll("&", "§");
-					System.out.print("[BuildFFA] DEBUG: ConfigKits: itemDescription1="+itemDescription1+"=");
+					if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: ConfigKits: itemDescription1="+itemDescription1+"="); }
 					String itemDescription2 = cfg.getString("Kits.kit"+i+".slot"+u+".Description.Description2").replaceAll("&", "§");
 					ArrayList<String> description = new ArrayList<String>();
 					if(!itemDescription1.equalsIgnoreCase("None")) {
@@ -104,7 +104,7 @@ public class ConfigKits {
 					}
 					catch (java.lang.NoSuchMethodError e) {	}
 				}
-				System.out.print("[BuildFFA] DEBUG: ConfigKits: unbreakable: "+itemUnbreakable);
+				if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: ConfigKits: unbreakable: "+itemUnbreakable); }
 				
 				Boolean itemHasEnchantments = cfg.getBoolean("Kits.kit"+i+".slot"+u+".Enchantments.hasEnchantments");
 				if(itemHasEnchantments) {
@@ -113,7 +113,7 @@ public class ConfigKits {
 						Integer enchId = cfg.getInt("Kits.kit"+i+".slot"+u+".Enchantments.ench"+k+".id");
 						Enchantment ench = Enchantment.getById(enchId);
 						Integer level = cfg.getInt("Kits.kit"+i+".slot"+u+".Enchantments.ench"+k+".level");
-						System.out.print("[BuildFFA] DEBUG: ConfigKits: ench="+ench+",level="+level);
+						if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: ConfigKits: ench="+ench+",level="+level); }
 						itemM.addEnchant(ench, level, true);
 					}
 				}
@@ -146,22 +146,20 @@ public class ConfigKits {
 			String[] armourL = new String[] {"boots", "leggins", "chestplate", "helmet"};
 			for (int k=0; k<4; k++) {
 				String armourMaterial = cfg.getString("Kits.kit"+i+"."+armourL[k]+".ItemStackMaterial");
-				System.out.print("[BuildFFA] DEBUG: ArmourItemStackMaterial: "+armourMaterial);
+				if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: ArmourItemStackMaterial: "+armourMaterial); }
 				if(!armourMaterial.equalsIgnoreCase("AIR")) {
 					if(armourMaterial.contains("LEATHER")) {					
 						ItemStack armour = new ItemStack(Material.getMaterial(armourMaterial), 1);
 						LeatherArmorMeta itemM = (LeatherArmorMeta)armour.getItemMeta();
 						
-						// TODO Lederrüstung farbe
 						String colors = cfg.getString("Kits.kit"+i+"."+armourL[k]+".LeatherColorRGB");
 						List<String> colorList = Arrays.asList(colors.split("\\s*,\\s*"));
-						System.out.print("[BuildFFA] DEBUG: LeatherColorRGB: "+colors);
-						System.out.print("[BuildFFA] DEBUG: colorList[1]: "+colorList.get(1));
+						if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: LeatherColorRGB: "+colors); }
+						if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: colorList[1]: "+colorList.get(1)); }
 						Integer colorR = Integer.parseInt(colorList.get(0));
 						Integer colorG = Integer.parseInt(colorList.get(1));
 						Integer colorB = Integer.parseInt(colorList.get(2));
-						System.out.print("[BuildFFA] DEBUG: R: "+colorR+", G: "+colorG+", B: "+colorB);
-						// TODO BUG wenn colorR, G, B unten eingesetzt (NullPointerException)
+						if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: R: "+colorR+", G: "+colorG+", B: "+colorB); }
 						itemM.setColor( Color.fromRGB(colorR, colorG, colorB) );
 						
 						String armourDisplayName = cfg.getString("Kits.kit"+i+"."+armourL[k]+".DisplayName").replaceAll("&", "§");;
@@ -188,7 +186,7 @@ public class ConfigKits {
 								Integer enchId = cfg.getInt("Kits.kit"+i+"."+armourL[k]+".Enchantments.ench"+l+".id");
 								Enchantment ench = Enchantment.getById(enchId);
 								Integer level = cfg.getInt("Kits.kit"+i+"."+armourL[k]+".Enchantments.ench"+l+".level");
-								System.out.print("[BuildFFA] DEBUG: ConfigKits: ench="+ench+",level="+level);
+								if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: ConfigKits: ench="+ench+",level="+level); }
 								itemM.addEnchant(ench, level, true);
 							}
 						}
@@ -238,7 +236,7 @@ public class ConfigKits {
 								Integer enchId = cfg.getInt("Kits.kit"+i+"."+armourL[k]+".Enchantments.ench"+l+".id");
 								Enchantment ench = Enchantment.getById(enchId);
 								Integer level = cfg.getInt("Kits.kit"+i+"."+armourL[k]+".Enchantments.ench"+l+".level");
-								System.out.print("[BuildFFA] DEBUG: ConfigKits: ench="+ench+",level="+level);
+								if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: ConfigKits: ench="+ench+",level="+level); }
 								itemM.addEnchant(ench, level, true);
 							}
 						}

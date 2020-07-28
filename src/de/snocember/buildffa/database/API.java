@@ -1,4 +1,5 @@
-// (c) Snocember(#8770 auf Discord), 2019
+// (c) Snocember (#8770 auf Discord), 2019-20
+// dev.snocember.de | dev@snocember.de
 package de.snocember.buildffa.database;
 
 import java.sql.ResultSet;
@@ -23,23 +24,22 @@ public class API {
 		boolean status = false;
 		try {
 			Statement stmt = DBController.connection.createStatement();
-			System.out.println("[BuildFFA] DEBUG: (API.CheckIfInDB) SELECT statsAllKills FROM "+ConfigDB.StatsTableName+" WHERE playerid = '"+pid+"';");
+			if (Main.DebugOn == true) {System.out.println("[BuildFFA] DEBUG: (API.CheckIfInDB) SELECT statsAllKills FROM "+ConfigDB.StatsTableName+" WHERE playerid = '"+pid+"';"); }
 			ResultSet rs1 = stmt.executeQuery("SELECT statsAllKills FROM "+ConfigDB.StatsTableName+" WHERE playerid = '"+pid+"';");
 			rs1.next();
 			// falls kein Fehler auftritt, ist status = true.	
 			@SuppressWarnings("unused")
 			String test = rs1.getString("statsAllKills");
-			if (Main.DebugOn.equals(1)) { System.out.println("[BuildFFA] (database.API) Kein Fehler bei Check ob Spieler in DB ist."); }
+			if (Main.DebugOn == true) { System.out.println("[BuildFFA] (database.API) Kein Fehler bei Check ob Spieler in DB ist."); }
 			status = true;
-		} catch (SQLException e) {
-			if (Main.DebugOn.equals(1)) { 
-				if (Main.DebugOn.equals(1)) {System.err.println("[BuildFFA] (database.API) Spieler nicht in DB.");}
-				if (Main.DebugOn.equals(1)) {e.printStackTrace();}
+		} catch (SQLException | NullPointerException e) {
+			if (Main.DebugOn == true) {
+				System.err.println("[BuildFFA] (database.API) Spieler nicht in DB.");
+				if (Main.DebugOn == true) { e.printStackTrace(); }
 				status = false;
 			}
 		}
 		return status;
-		// TODO vielleicht return String?
 	}
 	public static Integer[] GetStatsAll(String playername) {
 		Integer[] answer = null;
@@ -50,18 +50,18 @@ public class API {
 		if(CheckIfInDB(thepid)) {
 			try {
 				Statement stmt1 = DBController.connection.createStatement();
-				System.out.println("[BuildFFA] DEBUG: (API:GetStatsAll): SELECT statsAllKills, statsAllDeaths FROM "+ConfigDB.StatsTableName+" WHERE playerid = '"+thepid+"';");
+				if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: (API:GetStatsAll): SELECT statsAllKills, statsAllDeaths FROM "+ConfigDB.StatsTableName+" WHERE playerid = '"+thepid+"';"); }
 				ResultSet rs1 = stmt1.executeQuery("SELECT statsAllKills, statsAllDeaths FROM "+ConfigDB.StatsTableName+" WHERE playerid = '"+thepid+"';");
 				rs1.next();
 				kills = rs1.getInt("statsAllKills");
 				deaths = rs1.getInt("statsAllDeaths");
-				System.out.println("[BuildFFA] DEBUG: (API:GetStatsAll): "+kills +" "+ deaths);
+				if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: (API:GetStatsAll): "+kills +" "+ deaths); }
 				rs1.close();
 				stmt1.close();
 				answer = new Integer[] {kills, deaths};
-			} catch (SQLException e) {
-				e.printStackTrace();
-				System.out.println("[BuildFFA] DEBUG: (API:GetStatsAll): SQLException");
+			} catch (SQLException | NullPointerException e) {
+				if (Main.DebugOn == true) { e.printStackTrace(); }
+				if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: (API:GetStatsAll): SQLException | NullPointerException"); }
 				answer = new Integer[] {kills, deaths};
 			}
 		}
@@ -76,7 +76,7 @@ public class API {
 			try {
 		    	Integer thekills = Integer.valueOf(kills);
 		    	Integer thedeaths = Integer.valueOf(deaths);
-		    	if (Main.DebugOn.equals(1)) { System.out.println("[Coins] DEBUG: "+String.valueOf(thepid)); }
+		    	if (Main.DebugOn == true) { System.out.println("[Coins] DEBUG: "+String.valueOf(thepid)); }
 		        DBController.q_action.add("SET");
 		        DBController.q_pid.add(thepid);
 		        DBController.q_kills.add(thekills);
@@ -90,8 +90,7 @@ public class API {
 		    	status = false;
 		    }	
 		}
-		return status;
-		
+		return status;		
 	}
 	public static boolean UpdateStatsAll(String player, int kills, int deaths) {
 		boolean status = false;
@@ -101,7 +100,7 @@ public class API {
 			try {
 				Integer thekills = Integer.valueOf(kills);
 		    	Integer thedeaths = Integer.valueOf(deaths);
-				if (Main.DebugOn.equals(1)) { System.out.println("[BuildFFA] DEBUG: "+String.valueOf(thepid)); }
+		    	if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: "+String.valueOf(thepid)); }
 				DBController.q_action.add("UPDATE");
 				DBController.q_pid.add(thepid);
 		        DBController.q_kills.add(thekills);
@@ -115,7 +114,6 @@ public class API {
 				status = false;
 			}
 		}
-		return status;
-		
+		return status;		
 	}
 }

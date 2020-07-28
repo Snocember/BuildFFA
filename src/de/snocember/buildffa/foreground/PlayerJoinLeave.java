@@ -38,7 +38,7 @@ public class PlayerJoinLeave implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerJoinEvent(PlayerJoinEvent event) {
-	    if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] DEBUG: Joinevent!"); }
+		if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: Joinevent!"); }
 	    Player p = event.getPlayer();
 	    event.setJoinMessage("");
 	    p.setExp((float) 0);
@@ -54,7 +54,7 @@ public class PlayerJoinLeave implements Listener {
 	    p.setGameMode(GameMode.ADVENTURE);
 	    
 	    try {
-		    if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] DEBUG: Test: ist DB-Eintrag vorhanden?");}
+	    	if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: Test: ist DB-Eintrag vorhanden?");}
     		Statement stmt1 = DBController.connection.createStatement();
     		String thepid2 = String.valueOf(event.getPlayer().getUniqueId());
 			ResultSet rs1 = stmt1.executeQuery("SELECT statsAllKills FROM "+ConfigDB.StatsTableName+" WHERE playerid = '"+thepid2+"';");
@@ -63,14 +63,14 @@ public class PlayerJoinLeave implements Listener {
 			Integer test = rs1.getInt("statsAllKills");
 			rs1.close();
 			stmt1.close();
-		} catch (SQLException e) {
-			if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] DEBUG: hat keinen DB-Eintrag; Neuer wird gemacht.");}
+		} catch (SQLException | NullPointerException e) {
+			if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: hat keinen DB-Eintrag; Neuer wird gemacht.");}
 			try {
 				String thepid3 = String.valueOf(event.getPlayer().getUniqueId());
 //				Statement stmt1 = DBController.connection.createStatement();
 				PreparedStatement psNew = DBController.connection
 	            		.prepareStatement("INSERT INTO "+ConfigDB.StatsTableName+" VALUES (?, ?, ?);");
-				System.out.println("[BuildFFA] DEBUG: (PlayerJoinLeave.onPlayerJoinEvent:catchSQL): INSERT INTO "+ConfigDB.StatsTableName+" VALUES ('"+thepid3+"', 0, 0);");
+				if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: (PlayerJoinLeave.onPlayerJoinEvent:catchSQL): INSERT INTO "+ConfigDB.StatsTableName+" VALUES ('"+thepid3+"', 0, 0);"); }
 //				stmt1.executeUpdate("INSERT INTO "+ConfigDB.StatsTableName+" VALUES ("+thepid3+", 0, 0);");
 				psNew.setString(1, thepid3);
         		psNew.setInt(2, 0);
@@ -78,11 +78,11 @@ public class PlayerJoinLeave implements Listener {
         		psNew.addBatch(); 
         		psNew.executeBatch();
 				psNew.close();
-				if (Main.DebugOn.equals("1")) {System.out.println("[BuildFFA] "+event.getPlayer().getName()+" gejoined. Wurde der DB hinzugefügt.");}
-			} catch (SQLException e1) {	
-				if (Main.DebugOn.equals("1")) {
-					System.out.println("[BuildFFA] Fehler beim hinzufügen des Spielers.");
-					e1.printStackTrace(); 			
+				if (Main.DebugOn == true) {System.out.println("[BuildFFA] DEBUG: "+event.getPlayer().getName()+" gejoined. Wurde der DB hinzugefügt.");}
+			} catch (SQLException | NullPointerException e1) {	
+				if (Main.DebugOn == true) {
+					System.err.println("[BuildFFA] SQL: Fehler beim hinzufügen des Spielers.");
+					if (Main.DebugOn == true) { e1.printStackTrace(); }		
 				}
 			}
 	        

@@ -1,3 +1,5 @@
+// (c) Snocember (#8770 auf Discord), 2020
+// dev.snocember.de | dev@snocember.de
 package de.snocember.buildffa.stats;
 
 import java.util.HashMap;
@@ -7,6 +9,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import de.snocember.buildffa.Main;
 import de.snocember.buildffa.database.API;
 
 @SuppressWarnings("unused")
@@ -19,13 +22,18 @@ public class StatsSystem {
 	// killStreakMap.get(uuid), [0] killStreak, [1] killStreakRecord
 	
 	public static void LoadProfile(UUID uuid) {
-		Integer[] stats = API.GetStatsAll(Bukkit.getPlayer(uuid).getName());
-		System.out.println("[BuildFFA] DEBUG: (StatsSystem:LoadProfile): "+stats[0]+" "+stats[1]);
-		// TODO load killStreak and Record
-		killMap.put(uuid, new int[] {stats[0], 0, 0});
-		deathMap.put(uuid, new int[] {stats[1], 0, 0});
-		killStreakMap.put(uuid, new int[] {0, 0});
-		// TODO falls keine Connection -> Ersatzwerte, da sonst unendlich schleife
+		try {
+			Integer[] stats = API.GetStatsAll(Bukkit.getPlayer(uuid).getName());
+			if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: (StatsSystem:LoadProfile): "+stats[0]+" "+stats[1]); }
+			// TODO load killStreak and Record
+			killMap.put(uuid, new int[] {stats[0], 0, 0});
+			deathMap.put(uuid, new int[] {stats[1], 0, 0});
+			killStreakMap.put(uuid, new int[] {0, 0});
+			// TODO falls keine Connection -> Ersatzwerte, da sonst unendlich schleife
+		}
+		catch (NullPointerException e) {
+			if (Main.DebugOn == true) { System.err.println("[BuildFFA] Fehler beim Laden des Stats-Profils."); }
+		}
 		
 	}
 	

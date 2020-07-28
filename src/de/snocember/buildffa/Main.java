@@ -23,7 +23,7 @@ import de.snocember.buildffa.stats.StatsCommand;
 
 public class Main extends JavaPlugin {
 	
-	public static String DebugOn = "1";
+	public static Boolean DebugOn = false;
 	public static Boolean aliveService = true;
 	
 	@Override

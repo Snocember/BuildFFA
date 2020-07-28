@@ -1,3 +1,5 @@
+// (c) Snocember (#8770 auf Discord), 2020
+// dev.snocember.de | dev@snocember.de
 package de.snocember.buildffa.background;
 
 import java.util.Collection;

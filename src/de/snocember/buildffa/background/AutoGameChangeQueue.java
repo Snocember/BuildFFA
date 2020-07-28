@@ -1,3 +1,5 @@
+// (c) Snocember (#8770 auf Discord), 2020
+// dev.snocember.de | dev@snocember.de
 package de.snocember.buildffa.background;
 
 import org.bukkit.scheduler.BukkitRunnable;
@@ -43,12 +45,12 @@ public class AutoGameChangeQueue {
 	}
 	
 	public static void startStatsQueue(Main plugin) {
-		System.out.println("[BuildFFA] DEBUG: (AutoGameChangeQueue.startStatsQueue) Queue gestartet.");
+		if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: (AutoGameChangeQueue.startStatsQueue) Queue gestartet."); }
 		new BukkitRunnable() {
 			
 			public void run() {
 				if(Main.aliveService) {
-					System.out.println("[BuildFFA] DEBUG: (AutoGameChangeQueue.startStatsQueue) neuer Durchlauf!");
+					if (Main.DebugOn == true) { System.out.println("[BuildFFA] DEBUG: (AutoGameChangeQueue.startStatsQueue) neuer Durchlauf!"); }
 					DBController.handleDB();
 				}
 		    }

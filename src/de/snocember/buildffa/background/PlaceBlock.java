@@ -40,13 +40,13 @@ public class PlaceBlock implements Listener {
             Location loc = block.getLocation();
             
             if (loc.getY() >= Config.MaxBuildHeight.doubleValue()) {
+            	if (Main.DebugOn == true) { System.out.print("[BuildFFA] DEBUG: PlaceBlock: loc.getY()='"+loc.getY()+"'; MaxBuildHeight='"+Config.MaxBuildHeight.doubleValue()+"'"); }
             	if (loc.getY() == Config.MaxBuildHeight.doubleValue()) {
             		block.setTypeIdAndData(159, (byte) 4, true);
             	}
             	else {
             		e.setCancelled(true);
             	}
-            	System.out.print("[BuildFFA] DEBUG: PlaceBlock: loc.getY()='"+loc.getY()+"'; MaxBuildHeight='"+Config.MaxBuildHeight.doubleValue()+"'");
             }
             
             if (loc.getX() >= Config.SpawnCoordX + Config.MaxBuildWidthX.doubleValue()) {

@@ -1,3 +1,5 @@
+// (c) Snocember (#8770 auf Discord), 2020
+// dev.snocember.de | dev@snocember.de
 package de.snocember.buildffa.foreground;
 
 import java.util.ArrayList;
@@ -21,8 +23,7 @@ public class RemoveBlockQueue {
 	public RemoveBlockQueue(Main plugin) {
 		this.plugin = plugin;
 		startQueue(plugin);
-	}
-	
+	}	
 	
 	public static void addBlockQueue(Block block) {
 		block_list.add(block);
@@ -63,7 +64,6 @@ public class RemoveBlockQueue {
 		        	}	        	
 		        }	
 		    }
-		}.runTaskTimer(plugin, 0L, 10L); // 20L = 1 sek
-		
+		}.runTaskTimer(plugin, 0L, 10L); // 20L = 1 sek		
 	}
 }
