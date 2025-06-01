@@ -111,11 +111,18 @@ public class StatsSystem {
 			LoadProfile(uuid);
 			deaths = getDeaths(uuid);
 		}
-		deathMap.put(uuid, new int[] {deaths[0]+1, deaths[1]+1, deaths[2]+1});
-		API.SetStatsAll(Bukkit.getPlayer(uuid).getName(), killMap.get(uuid)[0], deathMap.get(uuid)[0]);
-		int killStreakRecord = getKillStreak(uuid)[1];
-		killStreakMap.put(uuid, new int[] {0, killStreakRecord});
-		return true;
+		try {
+			deathMap.put(uuid, new int[] {deaths[0]+1, deaths[1]+1, deaths[2]+1});
+			API.SetStatsAll(Bukkit.getPlayer(uuid).getName(), killMap.get(uuid)[0], deathMap.get(uuid)[0]);
+			int killStreakRecord = getKillStreak(uuid)[1];
+			killStreakMap.put(uuid, new int[] {0, killStreakRecord});
+			return true;
+		}
+		catch (NullPointerException e) {
+			System.err.println("[BuildFFA] "+"\033[91m"+"StatsError | Der Death konnte nicht gespeichert werden. SQL-Verbindung?"+"\033[0m");
+			return false;
+			
+		}
 	}
 	
 	public static boolean addKill(UUID uuid) {
@@ -128,17 +135,23 @@ public class StatsSystem {
 			LoadProfile(uuid);
 			kills = getKills(uuid);
 		}
-		killMap.put(uuid, new int[] {kills[0]+1, kills[1]+1, kills[2]+1});
-		API.SetStatsAll(Bukkit.getPlayer(uuid).getName(), killMap.get(uuid)[0], deathMap.get(uuid)[0]);
-		int killStreak = getKillStreak(uuid)[0];
-		int killStreakRecord = getKillStreak(uuid)[1];
+		try {
+			killMap.put(uuid, new int[] {kills[0]+1, kills[1]+1, kills[2]+1});
+			API.SetStatsAll(Bukkit.getPlayer(uuid).getName(), killMap.get(uuid)[0], deathMap.get(uuid)[0]);
+			int killStreak = getKillStreak(uuid)[0];
+			int killStreakRecord = getKillStreak(uuid)[1];
 		
-		if(killStreak+1 > killStreakRecord) {
-			killStreakMap.put(uuid, new int[] {killStreak+1, killStreak+1});
+			if(killStreak+1 > killStreakRecord) {
+				killStreakMap.put(uuid, new int[] {killStreak+1, killStreak+1});
+			}
+			else {
+				killStreakMap.put(uuid, new int[] {killStreak+1, killStreakRecord});
+			}
+			return true;
 		}
-		else {
-			killStreakMap.put(uuid, new int[] {killStreak+1, killStreakRecord});
+		catch (NullPointerException e) {
+			System.err.println("[BuildFFA] "+"\033[91m"+"StatsError | Der Kill konnte nicht gespeichert werden. SQL-Verbindung?"+"\033[0m");
+			return false;
 		}
-		return true;
 	}
 }

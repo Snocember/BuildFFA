@@ -49,8 +49,14 @@ public class StatsCommand implements CommandExecutor{
 				return true;
 			}
 	    	catch (NullPointerException e) {
-	    		if (Main.DebugOn == true) { System.err.println("[BuildFFA] Fehler beim Abrufen der Statistiken."); }
-	    		return false;
+	    		if (Config.RecordStats.equals(false)) {
+	    			return true;
+	    		}
+	    		else {
+	    			if (Main.DebugOn == true) { System.err.println("[BuildFFA] Fehler beim Abrufen der Statistiken."); }
+	    			p.sendMessage(Config.PluginPrefix+" §rDie Statistiken konnten nicht abgerufen werden.");
+	    			return false;
+	    		}
 			}
 
 	    }

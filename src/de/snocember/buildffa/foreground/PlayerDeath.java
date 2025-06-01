@@ -39,7 +39,7 @@ public class PlayerDeath implements Listener {
         	k.sendTitle("", "§2+ Kill");
 //        	k.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3, 10, false, false));
         	k.setHealth(20);
-        	StatsSystem.addKill(k.getUniqueId());
+        	if (Config.RecordStats) { StatsSystem.addKill(k.getUniqueId()); }
         	k.playSound(k.getLocation(), Sound.ORB_PICKUP, (float) 100, (float) 0.8);
         	
         	p.getInventory().clear();
@@ -52,7 +52,7 @@ public class PlayerDeath implements Listener {
   				  p.teleport(Config.wspawn);
   			  }
         	}, Long.valueOf(4) );
-        	StatsSystem.addDeath(p.getUniqueId());
+        	if (Config.RecordStats) { StatsSystem.addDeath(p.getUniqueId()); }
         }	
     	catch (NullPointerException err) { 
     		event.setDeathMessage(Config.DeathMsgBeforePlayerName +p.getName() +Config.DeathMsgAfterPlayerName);
@@ -68,7 +68,7 @@ public class PlayerDeath implements Listener {
     			  }
     		}, Long.valueOf(4) );
     		
-    		StatsSystem.addDeath(p.getUniqueId());
+    		if (Config.RecordStats) { StatsSystem.addDeath(p.getUniqueId()); }
         }
         if(Config.Death_ShowTitleWhenJoin) {
 	    	p.sendTitle(Config.Death_TitleHeadline, Config.Death_TitleCaption);

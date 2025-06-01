@@ -63,6 +63,8 @@ public class Config {
 	public static Integer AutoMapChangePeriod;
 	public static Integer AutoKitChangePeriod;
 	
+	public static Boolean RecordStats;
+	
 	public static World w;
 	public static Location wspawn;
 	
@@ -145,6 +147,8 @@ public class Config {
 	    AutoMapChangePeriod = cfg.getInt("BuildFFA.AutoMapChangePeriodInSec");
 		AutoKitChangePeriod = cfg.getInt("BuildFFA.AutoKitChangePeriodInSec");
 	    
+		RecordStats = cfg.getBoolean("BuildFFA.Stats.recordStats");
+		
 		System.out.println("[BuildFFA] Config loaded.");
 	}
 	
@@ -205,9 +209,9 @@ public class Config {
 	    cfg.addDefault(path11, false);    
 
 	    String path11a = "BuildFFA.AutoMapChangePeriodInSec";
-	    cfg.addDefault(path11a, 0);
+	    cfg.addDefault(path11a, 300);
 	    String path11b = "BuildFFA.AutoKitChangePeriodInSec";
-	    cfg.addDefault(path11b, 0);
+	    cfg.addDefault(path11b, 120);
 	    
 	    String path12a = "BuildFFA.Worlds.Number";
 	    cfg.addDefault(path12a, 1);

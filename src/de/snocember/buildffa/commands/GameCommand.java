@@ -47,7 +47,12 @@ public class GameCommand implements CommandExecutor{
 		    	return true;
 		    }
 			if(args[0].equalsIgnoreCase("help")) {
-		    	p.sendMessage(Config.PluginPrefix+" §eHilfe.");
+				if (p.hasPermission("buildffa.admin")) {
+					p.sendMessage(Config.PluginPrefix+" §eHilfe für Admins.");
+				}
+				else {
+					p.sendMessage(Config.PluginPrefix+" §eHilfe.");
+				}
 		    	return true;
 		    }
 			else if (p.hasPermission("buildffa.admin")) {
