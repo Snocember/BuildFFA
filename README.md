@@ -6,3 +6,6 @@ You have to kick other players from the map or kill them.
 
 It is compatible with Spigot and Bukkit (1.8.8/1.8.9). 
 Some features may not be available when using Bukkit.
+
+Please note: This plugin was developed during my early days of learning Java.
+The code will contain bugs or beginner-level mistakes.

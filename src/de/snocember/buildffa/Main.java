@@ -1,5 +1,20 @@
-// (c) Snocember (#8770 auf Discord), 2020
-// dev.snocember.de | dev@snocember.de
+// (c) Snocember, 2020
+// dev.snocember.de | dev@snocember.de | @snocember (twitter and discord)
+// 
+// BuildFFA is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This project is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this project in the file LICENSE.md.
+// If not, see <https://www.gnu.org/licenses/>.
+
 package de.snocember.buildffa;
 
 import org.bukkit.plugin.java.JavaPlugin;
